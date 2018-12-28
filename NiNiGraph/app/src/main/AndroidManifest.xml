@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.CodeVerificationActivity"></activity>
+        <activity android:name=".Activity.CodeVerificationActivity" />
+        <activity android:name=".Activity.PersonalInfoActivity"></activity>
     </application>
 
 </manifest>
