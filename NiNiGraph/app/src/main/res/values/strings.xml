@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">NiNi Graph</string>
+
+    <!--Main Activity-->
+    <string name="txt_enter_phone">شماره تلفن همراه خود را وارد نمایید:</string>
+    <string name="hint_edt_txt_phone_number">09 - - - - - - - - -</string>
+    <string name="txt_login_caption_part1">بعد از وارد کردن شماره خود روی دکمه</string>
+    <string name="txt_login_caption_part2">"ثبت"</string>
+    <string name="txt_login_caption_part3">بزنید</string>
+    <string name="btn_login">ثبت</string>
+
+    <!--Code Verification Activity-->
+    <string name="txt_enter_code">کد 4 رقمی ارسال شده را وارد نمایید</string>
+    <string name="hint_edt_txt_code">- - - -</string>
+    <string name="txt_verification_caption_part1">بعد از وارد کردن کد پیامکی روی دکمه</string>
+    <string name="txt_verification_caption_part2">تایید</string>
+    <string name="txt_verification_caption_part3">بزنید</string>
+    <string name="btn_verify">تایید</string>
+    <string name="txt_send_code_again">ارسال مجدد کد فعال سازی</string>
+    <string name="txt_seconds">(60)</string>
+    <string name="txt_edit_phone_number">اصلاح شماره تلفن</string>
 </resources>
