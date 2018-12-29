@@ -5,6 +5,236 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.ninigraph.ninigraph.Activity.PersonalInfoActivity">
+    tools:context="ir.ninigraph.ninigraph.Activity.PersonalInfoActivity"
+    android:background="@mipmap/bg_primary">
+
+    <TextView
+        android:id="@+id/txt_enter_personal_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/txt_enter_personal_info"
+        android:textSize="24sp"
+        android:textColor="#000"
+        android:textAlignment="center"
+        android:layout_marginTop="22dp"/>
+
+    <LinearLayout
+        android:id="@+id/lay_edt_texts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/txt_enter_personal_info"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginLeft="38dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
+
+            <EditText
+                android:id="@+id/edt_txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00ffffff"
+                android:hint="@string/hint_edt_txt_name"
+                android:textSize="24sp"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:singleLine="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
+
+            <EditText
+                android:id="@+id/edt_txt_state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00ffffff"
+                android:hint="@string/hint_edt_txt_state"
+                android:textSize="24sp"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:singleLine="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
+
+            <EditText
+                android:id="@+id/edt_txt_city"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00ffffff"
+                android:hint="@string/hint_edt_txt_city"
+                android:textSize="24sp"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:singleLine="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
+
+            <EditText
+                android:id="@+id/edt_txt_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00ffffff"
+                android:hint="@string/hint_edt_txt_address"
+                android:textSize="24sp"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:singleLine="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_postal_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
+
+            <EditText
+                android:id="@+id/edt_txt_postal_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00ffffff"
+                android:hint="@string/hint_edt_txt_postal_code"
+                android:textSize="24sp"
+                android:inputType="number"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:singleLine="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/lay_edt_texts"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginLeft="48dp"
+        android:gravity="right">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_personal_info_caption1"
+            android:textColor="#000"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_personal_info_caption2"
+            android:textColor="#000"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_skip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="98dp"
+        android:layout_marginRight="98dp"
+        app:cardBackgroundColor="@color/colorBtnExit"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="12dp">
+
+        <Button
+            android:id="@+id/btn_skip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00ffffff"
+            android:text="@string/btn_skip"
+            android:textSize="24sp"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_save_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/card_skip"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginRight="88dp"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="12dp">
+
+        <Button
+            android:id="@+id/btn_save_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00ffffff"
+            android:text="@string/btn_save_info"
+            android:textSize="28sp"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
+    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

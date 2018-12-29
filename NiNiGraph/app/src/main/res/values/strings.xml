@@ -19,4 +19,16 @@
     <string name="txt_send_code_again">ارسال مجدد کد فعال سازی</string>
     <string name="txt_seconds">(60)</string>
     <string name="txt_edit_phone_number">اصلاح شماره تلفن</string>
+
+    <!--Personal Info Activity-->
+    <string name="txt_enter_personal_info">اطلاعات خود را وارد نمایید</string>
+    <string name="hint_edt_txt_name">نام و نام خانوادگی</string>
+    <string name="hint_edt_txt_state">استان</string>
+    <string name="hint_edt_txt_city">شهر</string>
+    <string name="hint_edt_txt_address">آدرس پستی</string>
+    <string name="hint_edt_txt_postal_code">کد پستی 10 رقمی</string>
+    <string name="txt_personal_info_caption1">•	اطلاعات این بخش قابل ویرایش میباشد</string>
+    <string name="txt_personal_info_caption2">•	آدرس و کد پستی در مواقعی که شما درخواست چاپ عکس دارید مورد نیاز است تا از طریق پست براتون ارسال نمائیم</string>
+    <string name="btn_save_info">ذخیره اطلاعات</string>
+    <string name="btn_skip">بعدا وارد میکنم</string>
 </resources>
