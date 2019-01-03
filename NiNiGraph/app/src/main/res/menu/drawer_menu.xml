@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/g1"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/new_order"
+        android:title="ثبت سفارش"/>
+    </group>
+
+    <group
+        android:id="@+id/g2"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/follow_order"
+        android:title="پیگیری سفارش"/>
+    </group>
+
+    <group
+        android:id="@+id/g3"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/edit_info"
+        android:title="ویرایش اطلاعات"/>
+    </group>
+
+
+    <group
+        android:id="@+id/g4"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/support"
+        android:title="پشتیبانی و تماس با ما"/>
+    </group>
+
+    <item android:title=""/>
+
+</menu>

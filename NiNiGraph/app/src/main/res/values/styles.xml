@@ -8,4 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="fabTheme1">
+        <item name="colorAccent">#ff8400</item>
+    </style>
+
+    <style name="fabTheme2">
+        <item name="colorAccent">#ffee00</item>
+    </style>
+
+    <style name="fabTheme3">
+        <item name="colorAccent">#00ff84</item>
+    </style>
+
+    <style name="fabTheme4">
+        <item name="colorAccent">#00ccff</item>
+    </style>
+
 </resources>

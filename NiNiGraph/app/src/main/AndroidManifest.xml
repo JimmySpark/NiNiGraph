@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.CodeVerificationActivity" />
-        <activity android:name=".Activity.PersonalInfoActivity"></activity>
+        <activity android:name=".Activity.PersonalInfoActivity" />
+        <activity android:name=".Activity.MainMenuActivity"></activity>
     </application>
 
 </manifest>
