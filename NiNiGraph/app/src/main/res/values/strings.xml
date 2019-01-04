@@ -2,33 +2,41 @@
     <string name="app_name">NiNi Graph</string>
 
     <!--Main Activity-->
-    <string name="txt_enter_phone">شماره تلفن همراه خود را وارد نمایید:</string>
-    <string name="hint_edt_txt_phone_number">09 - - - - - - - - -</string>
-    <string name="txt_login_caption_part1">بعد از وارد کردن شماره خود روی دکمه</string>
-    <string name="txt_login_caption_part2">"ثبت"</string>
-    <string name="txt_login_caption_part3">بزنید</string>
-    <string name="btn_login">ثبت</string>
+    <string name="enter_phone">شماره تلفن همراه خود را وارد نمایید:</string>
+    <string name="hint_number_phone">09 - - - - - - - - -</string>
+    <string name="login_caption_part1">بعد از وارد کردن شماره خود روی دکمه</string>
+    <string name="login_caption_part2">"ثبت"</string>
+    <string name="login_caption_part3">بزنید</string>
+    <string name="login">ثبت</string>
 
     <!--Code Verification Activity-->
-    <string name="txt_enter_code">کد 4 رقمی ارسال شده را وارد نمایید</string>
-    <string name="hint_edt_txt_code">- - - -</string>
-    <string name="txt_verification_caption_part1">بعد از وارد کردن کد پیامکی روی دکمه</string>
-    <string name="txt_verification_caption_part2">تایید</string>
-    <string name="txt_verification_caption_part3">بزنید</string>
-    <string name="btn_verify">تایید</string>
-    <string name="txt_send_code_again">ارسال مجدد کد فعال سازی</string>
-    <string name="txt_seconds">(60)</string>
-    <string name="txt_edit_phone_number">اصلاح شماره تلفن</string>
+    <string name="enter_code">کد 4 رقمی ارسال شده را وارد نمایید</string>
+    <string name="hint_code">- - - -</string>
+    <string name="verification_caption_part1">بعد از وارد کردن کد پیامکی روی دکمه</string>
+    <string name="verification_caption_part2">تایید</string>
+    <string name="verification_caption_part3">بزنید</string>
+    <string name="ok">تایید</string>
+    <string name="send_code_again">ارسال مجدد کد فعال سازی</string>
+    <string name="number_seconds">(60)</string>
+    <string name="edit_phone_number">اصلاح شماره تلفن</string>
 
     <!--Personal Info Activity-->
-    <string name="txt_enter_personal_info">اطلاعات خود را وارد نمایید</string>
-    <string name="hint_edt_txt_name">نام و نام خانوادگی</string>
-    <string name="hint_edt_txt_state">استان</string>
-    <string name="hint_edt_txt_city">شهر</string>
-    <string name="hint_edt_txt_address">آدرس پستی</string>
-    <string name="hint_edt_txt_postal_code">کد پستی 10 رقمی</string>
-    <string name="txt_personal_info_caption1">•	اطلاعات این بخش قابل ویرایش میباشد</string>
-    <string name="txt_personal_info_caption2">•	آدرس و کد پستی در مواقعی که شما درخواست چاپ عکس دارید مورد نیاز است تا از طریق پست براتون ارسال نمائیم</string>
-    <string name="btn_save_info">ذخیره اطلاعات</string>
-    <string name="btn_skip">بعدا وارد میکنم</string>
+    <string name="enter_personal_info">اطلاعات خود را وارد نمایید</string>
+    <string name="hint_name">نام و نام خانوادگی</string>
+    <string name="hint_state">استان</string>
+    <string name="hint_city">شهر</string>
+    <string name="hint_address">آدرس پستی</string>
+    <string name="hint_postal_code">کد پستی 10 رقمی</string>
+    <string name="personal_info_caption1">•	اطلاعات این بخش قابل ویرایش میباشد</string>
+    <string name="personal_info_caption2">•	آدرس و کد پستی در مواقعی که شما درخواست چاپ عکس دارید مورد نیاز است تا از طریق پست براتون ارسال نمائیم</string>
+    <string name="save_info">ذخیره اطلاعات</string>
+    <string name="skip">بعدا وارد میکنم</string>
+
+    <!--Main Menu Activity-->
+    <string name="brand_name">نی نی گراف</string>
+    <string name="menu">منو</string>
+    <string name="new_order">ثبت سفارش</string>
+    <string name="follow_order">پیگیری سفارش</string>
+    <string name="edit_info">ویرایش اطلاعات</string>
+    <string name="support">پشتیبانی و تماس با ما</string>
 </resources>

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import co.ronash.pushe.Pushe;
 import ir.ninigraph.ninigraph.App.AppController;
 import ir.ninigraph.ninigraph.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Pushe
+        Pushe.initialize(this, true);
 
         //Views
         edt_text_phone_number = findViewById(R.id.edt_txt_phone_number);

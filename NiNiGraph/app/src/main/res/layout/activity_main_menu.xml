@@ -8,6 +8,175 @@
     tools:context="ir.ninigraph.ninigraph.Activity.MainMenuActivity"
     android:background="@mipmap/bg_primary">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ss.com.bannerslider.Slider
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="300dp"
+                app:slider_loopSlides="true"
+                app:slider_interval="4000"
+                android:visibility="visible"
+                app:slider_selectedSlideIndicator="@drawable/img_selected_indicator"/>
+
+            <HorizontalScrollView
+                android:id="@+id/lay_ads"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintTop_toBottomOf="@+id/slider"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_ads"
+                            android:scaleType="centerCrop"/>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_ads"
+                            android:scaleType="centerCrop"/>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_ads"
+                            android:scaleType="centerCrop"/>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_ads"
+                            android:scaleType="centerCrop"/>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="4dp"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_ads"
+                            android:scaleType="centerCrop"/>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/lay_newest_work_samples"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/lay_ads"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="جدیدترین نمونه کارها"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="4dp"/>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="4dp"
+                            app:cardUseCompatPadding="true">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/img_sample1"
+                                android:scaleType="centerCrop"/>
+                        </android.support.v7.widget.CardView>
+                        <android.support.v7.widget.CardView
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="4dp"
+                            app:cardUseCompatPadding="true">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/img_sample2"
+                                android:scaleType="centerCrop"/>
+                        </android.support.v7.widget.CardView>
+                        <android.support.v7.widget.CardView
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="4dp"
+                            app:cardUseCompatPadding="true">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/img_sample3"
+                                android:scaleType="centerCrop"/>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
     <RelativeLayout
         android:id="@+id/item_new_order"
         android:layout_width="wrap_content"
@@ -39,7 +208,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ثبت سفارش"
+                android:text="@string/new_order"
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:layout_marginRight="16dp"
@@ -78,7 +247,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="پیگیری سفارش"
+                android:text="@string/follow_order"
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:layout_marginRight="16dp"
@@ -117,7 +286,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ویرایش اطلاعات"
+                android:text="@string/edit_info"
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:layout_marginRight="16dp"
@@ -156,7 +325,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="پشتیبانی و تماس با ما"
+                android:text="@string/support"
                 android:textColor="#000"
                 android:textSize="20sp"
                 android:layout_marginRight="16dp"
@@ -164,12 +333,14 @@
         </android.support.v7.widget.CardView>
     </RelativeLayout>
 
-    <android.support.v7.widget.Toolbar
+    <android.support.v7.widget.CardView
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorAccent">
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="8dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -192,7 +363,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="-4dp"
-                android:text="نی نی گراف"
+                android:text="@string/brand_name"
                 android:textSize="24sp"
                 android:textColor="#fff"/>
 
@@ -209,7 +380,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="2dp"
-                    android:text="منو"
+                    android:text="@string/menu"
                     android:textSize="22sp"
                     android:textColor="#fff"/>
 
@@ -220,6 +391,6 @@
             </LinearLayout>
 
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

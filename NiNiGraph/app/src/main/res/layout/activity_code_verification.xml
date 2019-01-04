@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="#00ffffff"
-            android:hint="@string/hint_edt_txt_code"
+            android:hint="@string/hint_code"
             android:textSize="32sp"
             android:textStyle="bold"
             android:maxLength="4"
@@ -45,7 +45,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="64dp"
-        android:text="@string/txt_enter_code"
+        android:text="@string/enter_code"
         android:textSize="22sp"
         android:textColor="#000"/>
 
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_verification_caption_part3"
+            android:text="@string/verification_caption_part3"
             android:textSize="14sp"
             android:textColor="#000"/>
 
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_verification_caption_part2"
+            android:text="@string/verification_caption_part2"
             android:textSize="14sp"
             android:textColor="@color/colorAccent"/>
 
@@ -89,7 +89,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_verification_caption_part1"
+            android:text="@string/verification_caption_part1"
             android:textSize="14sp"
             android:textColor="#000"/>
     </LinearLayout>
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#00ffffff"
-            android:text="@string/btn_verify"
+            android:text="@string/ok"
             android:textSize="34sp"
             android:textColor="#fff"
             android:textStyle="bold"/>
@@ -128,7 +128,7 @@
             android:id="@+id/txt_btn_edit_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_edit_phone_number"
+            android:text="@string/edit_phone_number"
             android:textSize="16sp"
             android:textColor="#000"/>
 
@@ -146,7 +146,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_seconds"
+                android:text="@string/number_seconds"
                 android:textSize="16sp"
                 android:textColor="#000"
                 android:layout_marginRight="4dp"/>
@@ -154,7 +154,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_send_code_again"
+                android:text="@string/send_code_again"
                 android:textSize="16sp"
                 android:textColor="#000"/>
         </LinearLayout>

@@ -6,12 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ir.ninigraph.ninigraph.Adapter.SliderAdapter;
 import ir.ninigraph.ninigraph.R;
+import ss.com.bannerslider.ImageLoadingService;
+import ss.com.bannerslider.Slider;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -21,6 +25,7 @@ public class MainMenuActivity extends AppCompatActivity {
     LinearLayout lay_menu;
     RelativeLayout item_new_order, item_follow_order, item_edit_info, item_support;
     boolean isMenuVisible = false;
+    Slider slider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class MainMenuActivity extends AppCompatActivity {
         item_follow_order = findViewById(R.id.item_follow_order);
         item_edit_info = findViewById(R.id.item_edit_info);
         item_support = findViewById(R.id.item_support);
+        slider = findViewById(R.id.slider);
 
 
         //Change Font
@@ -47,7 +53,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
                 if (!isMenuVisible) {
 
-                    showMenuItmes();
+                    showMenuItems();
                     item_new_order.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -90,10 +96,30 @@ public class MainMenuActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //Load Slider
+        slider.setAdapter(new SliderAdapter());
+        Slider.init(new ImageLoadingService() {
+            @Override
+            public void loadImage(String url, ImageView imageView) {
+
+            }
+
+            @Override
+            public void loadImage(int resource, ImageView imageView) {
+
+                imageView.setImageResource(resource);
+            }
+
+            @Override
+            public void loadImage(String url, int placeHolder, int errorDrawable, ImageView imageView) {
+
+            }
+        });
     }
 
     //Classes
-    private void showMenuItmes(){
+    private void showMenuItems(){
 
         isMenuVisible = true;
         item_new_order.setVisibility(View.VISIBLE);
