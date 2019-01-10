@@ -9,6 +9,7 @@
         android:protectionLevel="signature" />
     <uses-permission android:name="ir.ninigraph.ninigraph.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- Optional permissions -->
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION"/>
@@ -24,7 +25,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activity.MainActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,11 +35,11 @@
         </activity>
         <activity
             android:name=".Activity.CodeVerificationActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.PersonalInfoActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".Activity.MainMenuActivity"

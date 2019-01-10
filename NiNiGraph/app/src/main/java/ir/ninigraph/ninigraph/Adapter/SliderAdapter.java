@@ -1,29 +1,36 @@
 package ir.ninigraph.ninigraph.Adapter;
 
+import android.content.Context;
+import java.util.List;
+import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.R;
+import ir.ninigraph.ninigraph.Util.GlideApp;
 import ss.com.bannerslider.viewholder.ImageSlideViewHolder;
+
 
 public class SliderAdapter extends ss.com.bannerslider.adapters.SliderAdapter{
 
-    @Override
-    public int getItemCount() {
-        return 3;
+    Context context;
+    List<Picture> pictureList;
+
+    public SliderAdapter(Context context, List<Picture> pictureList) {
+        this.context = context;
+        this.pictureList = pictureList;
     }
 
     @Override
-    public void onBindImageSlide(int position, ImageSlideViewHolder imageSlideViewHolder) {
+    public int getItemCount() {
+        return pictureList.size();
+    }
 
-        switch (position){
+    @Override
+    public void onBindImageSlide(int position, ImageSlideViewHolder holder) {
 
-            case 0:
-                imageSlideViewHolder.bindImageSlide(R.drawable.img_sample1);
-                break;
-            case 1:
-                imageSlideViewHolder.bindImageSlide(R.drawable.img_sample2);
-                break;
-            case 2:
-                imageSlideViewHolder.bindImageSlide(R.drawable.img_sample3);
-                break;
-        }
+        GlideApp
+                .with(context)
+                .load(pictureList.get(position).getUrl())
+                .placeholder(R.drawable.logo)
+                .skipMemoryCache(true)
+                .into(holder.imageView);
     }
 }
