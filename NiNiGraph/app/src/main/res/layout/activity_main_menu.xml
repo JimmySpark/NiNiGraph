@@ -45,7 +45,7 @@
                         app:layout_constraintTop_toBottomOf="@id/slider"/>
 
                     <LinearLayout
-                        android:id="@+id/lay_newest_work_samples"
+                        android:id="@+id/lay_newest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -60,7 +60,7 @@
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18sp"
                             android:layout_gravity="right"
-                            android:layout_marginRight="4dp"/>
+                            android:layout_marginRight="8dp"/>
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/recycler_newest"
@@ -68,9 +68,63 @@
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lay_occasional"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@+id/lay_newest"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="8dp">
+
+                            <ImageView
+                                android:id="@+id/img_back_category"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/icon_back2"
+                                android:layout_gravity="center_horizontal"
+                                android:visibility="gone"/>
+
+                            <TextView
+                                android:id="@+id/txt_occasional_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.9"
+                                android:text="مناسبتی ها"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="18sp"/>
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_occasional_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_occasional"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+
                 </android.support.constraint.ConstraintLayout>
             </ScrollView>
         </android.support.v4.widget.SwipeRefreshLayout>
+
+        <RelativeLayout
+            android:id="@+id/lay_dark_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#96000000"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:id="@+id/item_new_order"

@@ -43,7 +43,7 @@ public class RecyclerAdsAdapter extends RecyclerView.Adapter<RecyclerAdsAdapter.
         GlideApp
                 .with(context)
                 .load(ads.getUrl())
-                .placeholder(R.drawable.logo)
+                .placeholder(R.drawable.img_logo2)
                 .skipMemoryCache(true)
                 .into(holder.img_ad);
 

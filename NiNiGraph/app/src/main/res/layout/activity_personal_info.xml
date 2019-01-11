@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/enter_personal_info"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textColor="#000"
         android:textAlignment="center"
         android:layout_marginTop="22dp"/>
@@ -36,8 +36,7 @@
             app:cardBackgroundColor="#fff"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true"
-            app:cardElevation="1dp"
-            app:contentPadding="4dp">
+            app:cardElevation="1dp">
 
             <EditText
                 android:id="@+id/edt_txt_name"
@@ -45,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:background="#00ffffff"
                 android:hint="@string/hint_name"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:layout_gravity="right"
                 android:gravity="right"
                 android:singleLine="true"
@@ -63,8 +62,7 @@
             app:cardBackgroundColor="#fff"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true"
-            app:cardElevation="1dp"
-            app:contentPadding="4dp">
+            app:cardElevation="1dp">
 
             <EditText
                 android:id="@+id/edt_txt_state"
@@ -72,7 +70,7 @@
                 android:layout_height="match_parent"
                 android:background="#00ffffff"
                 android:hint="@string/hint_state"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:layout_gravity="right"
                 android:gravity="right"
                 android:singleLine="true"
@@ -90,8 +88,7 @@
             app:cardBackgroundColor="#fff"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true"
-            app:cardElevation="1dp"
-            app:contentPadding="4dp">
+            app:cardElevation="1dp">
 
             <EditText
                 android:id="@+id/edt_txt_city"
@@ -99,7 +96,7 @@
                 android:layout_height="match_parent"
                 android:background="#00ffffff"
                 android:hint="@string/hint_city"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:layout_gravity="right"
                 android:gravity="right"
                 android:singleLine="true"
@@ -117,8 +114,7 @@
             app:cardBackgroundColor="#fff"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true"
-            app:cardElevation="1dp"
-            app:contentPadding="4dp">
+            app:cardElevation="1dp">
 
             <EditText
                 android:id="@+id/edt_txt_address"
@@ -126,7 +122,7 @@
                 android:layout_height="match_parent"
                 android:background="#00ffffff"
                 android:hint="@string/hint_address"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:layout_gravity="right"
                 android:gravity="right"
                 android:singleLine="true"
@@ -144,8 +140,7 @@
             app:cardBackgroundColor="#fff"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true"
-            app:cardElevation="1dp"
-            app:contentPadding="4dp">
+            app:cardElevation="1dp">
 
             <EditText
                 android:id="@+id/edt_txt_postal_code"
@@ -153,7 +148,7 @@
                 android:layout_height="match_parent"
                 android:background="#00ffffff"
                 android:hint="@string/hint_postal_code"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:inputType="number"
                 android:maxLength="10"
                 android:layout_gravity="right"
@@ -172,7 +167,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/lay_edt_texts"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginRight="48dp"
         android:layout_marginLeft="48dp"
         android:gravity="right">
@@ -198,11 +193,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="18dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginRight="98dp"
+        android:layout_marginLeft="104dp"
+        android:layout_marginRight="104dp"
         app:cardBackgroundColor="@color/colorOrange"
         app:cardCornerRadius="18dp"
-        app:cardElevation="12dp">
+        app:cardElevation="8dp">
 
         <Button
             android:id="@+id/btn_skip"
@@ -210,9 +205,8 @@
             android:layout_height="match_parent"
             android:background="#00ffffff"
             android:text="@string/skip"
-            android:textSize="24sp"
-            android:textColor="#fff"
-            android:textStyle="bold"/>
+            android:textSize="20sp"
+            android:textColor="#fff"/>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
@@ -220,12 +214,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/card_skip"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="12dp"
         android:layout_marginLeft="88dp"
         android:layout_marginRight="88dp"
         app:cardBackgroundColor="@color/colorAccent"
         app:cardCornerRadius="18dp"
-        app:cardElevation="12dp">
+        app:cardElevation="8dp">
 
         <Button
             android:id="@+id/btn_save_info"
@@ -233,9 +227,8 @@
             android:layout_height="match_parent"
             android:background="#00ffffff"
             android:text="@string/save_info"
-            android:textSize="28sp"
-            android:textColor="#fff"
-            android:textStyle="bold"/>
+            android:textSize="22sp"
+            android:textColor="#fff"/>
     </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

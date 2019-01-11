@@ -29,7 +29,7 @@ public class SliderAdapter extends ss.com.bannerslider.adapters.SliderAdapter{
         GlideApp
                 .with(context)
                 .load(pictureList.get(position).getUrl())
-                .placeholder(R.drawable.logo)
+                .placeholder(R.drawable.img_logo2)
                 .skipMemoryCache(true)
                 .into(holder.imageView);
     }

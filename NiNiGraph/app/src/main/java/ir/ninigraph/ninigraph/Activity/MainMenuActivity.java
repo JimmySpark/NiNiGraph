@@ -6,11 +6,13 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,8 +22,10 @@ import java.util.List;
 
 import ir.ninigraph.ninigraph.Adapter.RecyclerAdsAdapter;
 import ir.ninigraph.ninigraph.Adapter.RecyclerNewestAdapter;
+import ir.ninigraph.ninigraph.Adapter.RecyclerOccasionalCategoryAdapter;
 import ir.ninigraph.ninigraph.Adapter.SliderAdapter;
 import ir.ninigraph.ninigraph.Model.Ads;
+import ir.ninigraph.ninigraph.Model.OccasionalCategory;
 import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Server.ApiClient;
@@ -37,8 +41,11 @@ public class MainMenuActivity extends AppCompatActivity {
     //Values
     Context context = this;
     TextView txt_logo_title;
+    public static TextView txt_occasional_title;
+    public static ImageView img_back_category;
+    public static RecyclerView recycler_occasional, recycler_occasional_category;
     LinearLayout lay_menu;
-    RelativeLayout item_new_order, item_follow_order, item_edit_info, item_support;
+    RelativeLayout item_new_order, item_follow_order, item_edit_info, item_support, lay_dark_bg;
     boolean isMenuVisible = false;
     RecyclerView recycler_ads, recycler_newest;
     ss.com.bannerslider.Slider slider;
@@ -55,16 +62,22 @@ public class MainMenuActivity extends AppCompatActivity {
         //Views
         txt_logo_title = findViewById(R.id.txt_logo_title);
         lay_menu = findViewById(R.id.lay_menu);
+        lay_dark_bg = findViewById(R.id.lay_dark_bg);
         item_new_order = findViewById(R.id.item_new_order);
         item_follow_order = findViewById(R.id.item_follow_order);
         item_edit_info = findViewById(R.id.item_edit_info);
         item_support = findViewById(R.id.item_support);
+        slider = findViewById(R.id.slider);
         recycler_ads = findViewById(R.id.recycler_ads);
         recycler_newest = findViewById(R.id.recycler_newest);
+        txt_occasional_title = findViewById(R.id.txt_occasional_title);
+        recycler_occasional = findViewById(R.id.recycler_occasional);
+        recycler_occasional_category = findViewById(R.id.recycler_occasional_category);
         refreshLayout = findViewById(R.id.refresh_layout);
         lay_main_menu = findViewById(R.id.lay_main_menu);
         lay_no_con = findViewById(R.id.lay_no_con);
         btn_try_again = findViewById(R.id.btn_try_again);
+        img_back_category = findViewById(R.id.img_back_category);
 
 
         //Change Font
@@ -111,6 +124,14 @@ public class MainMenuActivity extends AppCompatActivity {
                         public void onClick(View v) {
 
                             Toast.makeText(MainMenuActivity.this, "پشتیبانی و تماس با ما", Toast.LENGTH_SHORT).show();
+                            hideMenuItems();
+                        }
+                    });
+
+                    lay_dark_bg.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
                             hideMenuItems();
                         }
                     });
@@ -161,6 +182,7 @@ public class MainMenuActivity extends AppCompatActivity {
         item_follow_order.setVisibility(View.VISIBLE);
         item_edit_info.setVisibility(View.VISIBLE);
         item_support.setVisibility(View.VISIBLE);
+        lay_dark_bg.setVisibility(View.VISIBLE);
 
         //..Start Animations
         item_new_order.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_new_order));
@@ -175,6 +197,7 @@ public class MainMenuActivity extends AppCompatActivity {
         item_follow_order.setVisibility(View.GONE);
         item_edit_info.setVisibility(View.GONE);
         item_support.setVisibility(View.GONE);
+        lay_dark_bg.setVisibility(View.GONE);
 
         //..Start Animations
         item_new_order.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
@@ -270,6 +293,35 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
     }
+    private void getOccasionalCategory(){
+
+        ApiService apiService = ApiClient.getApi().create(ApiService.class);
+        Call<List<OccasionalCategory>> call = apiService.getOccasionalCategory();
+
+        call.enqueue(new Callback<List<OccasionalCategory>>() {
+            @Override
+            public void onResponse(Call<List<OccasionalCategory>> call, Response<List<OccasionalCategory>> response) {
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+
+                        recycler_occasional_category.setLayoutManager(new GridLayoutManager(
+                                context,
+                                2
+                        ));
+                        recycler_occasional_category.setAdapter(new RecyclerOccasionalCategoryAdapter(
+                                context,
+                                response.body()
+                        ));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<OccasionalCategory>> call, Throwable t) {
+
+            }
+        });
+    }
     private void checkConnection(){
 
         isConnected = NetworkUtil.isConnected(context);
@@ -283,10 +335,14 @@ public class MainMenuActivity extends AppCompatActivity {
 
             lay_main_menu.setVisibility(View.VISIBLE);
             lay_no_con.setVisibility(View.GONE);
-            slider = findViewById(R.id.slider);
+            img_back_category.setVisibility(View.GONE);
+            txt_occasional_title.setText("مناسبتی ها");
+            recycler_occasional.setVisibility(View.GONE);
+            recycler_occasional_category.setVisibility(View.VISIBLE);
             getSliderData();
             getAds();
             getNewest();
+            getOccasionalCategory();
         }
     }
 

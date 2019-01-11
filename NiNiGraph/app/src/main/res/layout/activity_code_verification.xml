@@ -122,7 +122,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center"
-        android:layout_margin="4dp">
+        android:layout_margin="12dp">
 
         <TextView
             android:id="@+id/txt_btn_edit_phone_number"
@@ -136,8 +136,8 @@
             android:layout_width="1dp"
             android:layout_height="18dp"
             android:background="#000"
-            android:layout_marginRight="32dp"
-            android:layout_marginLeft="32dp"/>
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="24dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
