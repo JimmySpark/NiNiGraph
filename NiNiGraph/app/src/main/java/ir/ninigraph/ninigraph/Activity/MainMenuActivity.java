@@ -1,14 +1,21 @@
 package ir.ninigraph.ninigraph.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -52,7 +59,7 @@ public class MainMenuActivity extends AppCompatActivity {
     SwipeRefreshLayout refreshLayout;
     ConstraintLayout lay_main_menu, lay_no_con;
     Button btn_try_again;
-    boolean isConnected;
+    boolean isConnected, doubleBackToExitPressedOnce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +103,8 @@ public class MainMenuActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            Toast.makeText(MainMenuActivity.this, "ثبت سفارش", Toast.LENGTH_SHORT).show();
                             hideMenuItems();
+                            showNewOrderDialog();
                         }
                     });
 
@@ -105,8 +112,8 @@ public class MainMenuActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            Toast.makeText(MainMenuActivity.this, "پیگیری سفارش", Toast.LENGTH_SHORT).show();
                             hideMenuItems();
+                            startActivity(new Intent(context, FollowOrderActivity.class));
                         }
                     });
 
@@ -114,7 +121,6 @@ public class MainMenuActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            Toast.makeText(MainMenuActivity.this, "ویرایش اطلاعات", Toast.LENGTH_SHORT).show();
                             hideMenuItems();
                         }
                     });
@@ -123,7 +129,6 @@ public class MainMenuActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            Toast.makeText(MainMenuActivity.this, "پشتیبانی و تماس با ما", Toast.LENGTH_SHORT).show();
                             hideMenuItems();
                         }
                     });
@@ -204,6 +209,52 @@ public class MainMenuActivity extends AppCompatActivity {
         item_follow_order.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
         item_edit_info.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
         item_support.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
+    }
+    private void showNewOrderDialog(){
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_order, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(view);
+
+        LinearLayout btn_edit = view.findViewById(R.id.btn_edit);
+        LinearLayout btn_drawing = view.findViewById(R.id.btn_drawing);
+        LinearLayout btn_print = view.findViewById(R.id.btn_print);
+
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dialog));
+        dialog.show();
+
+        //Edit
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                startActivity(new Intent(context, NewOrderActivity.class));
+            }
+        });
+        //Drawing
+        btn_drawing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        //Print
+        btn_print.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        //Change Display
+        Display display = (getWindowManager().getDefaultDisplay());
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        width = (int)((width) * (((double) 4 / 5)));
+        dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
     private void getSliderData(){
 
@@ -356,7 +407,22 @@ public class MainMenuActivity extends AppCompatActivity {
 
         if (isMenuVisible)
             hideMenuItems();
-        else
-            super.onBackPressed();
+        else if (doubleBackToExitPressedOnce) {
+
+            //Exit App
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+        }
+        else {
+            doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "برای خروج دوباره لمس کنید.", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
     }
 }

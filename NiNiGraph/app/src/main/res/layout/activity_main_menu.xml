@@ -36,7 +36,8 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:slider_selectedSlideIndicator="@drawable/img_selected_indicator"
                         app:slider_loopSlides="true"
-                        app:slider_emptyView="@layout/layout_slider_empty_view"/>
+                        app:slider_emptyView="@layout/layout_slider_empty_view"
+                        android:background="#fff"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_ads"
@@ -341,6 +342,7 @@
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+
     </android.support.constraint.ConstraintLayout>
 
     <include
