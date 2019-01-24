@@ -8,299 +8,311 @@
     tools:context="ir.ninigraph.ninigraph.Activity.PaymentActivity"
     android:background="@mipmap/bg_primary">
 
-    <ScrollView
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/lay_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/lay_buttons"
-        android:layout_marginBottom="48dp">
+        android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/lay_buttons"
+            android:layout_marginBottom="48dp">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_prices"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="28dp"
-                app:cardBackgroundColor="#fff"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp">
+                android:layout_height="match_parent">
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_prices"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="28dp"
+                    app:cardBackgroundColor="#fff"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp">
 
-                    <android.support.v7.widget.CardView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="28dp"
-                        app:contentPadding="8dp">
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/txt_payment_title"
+                        <android.support.v7.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#000"
-                            android:textSize="24sp"
-                            android:textAlignment="center"/>
-                    </android.support.v7.widget.CardView>
+                            app:cardCornerRadius="28dp"
+                            app:contentPadding="8dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="16dp">
+                            <TextView
+                                android:id="@+id/txt_payment_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000"
+                                android:textSize="24sp"
+                                android:textAlignment="center"/>
+                        </android.support.v7.widget.CardView>
 
-                        <TextView
-                            android:id="@+id/txt_cost_design"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:textSize="22sp"
-                            android:textColor="#000"/>
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp">
 
-                        <TextView
-                            android:id="@+id/txt_design"
-                            android:layout_width="0dp"
+                            <TextView
+                                android:id="@+id/txt_price_drawing"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:textSize="22sp"
+                                android:textColor="#000"/>
+
+                            <TextView
+                                android:id="@+id/txt_drawing"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:text="طراحی:"
+                                android:textSize="22sp"
+                                android:textColor="#000"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="طراحی:"
-                            android:textSize="22sp"
-                            android:textColor="#000"/>
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp">
+
+                            <TextView
+                                android:id="@+id/txt_price_edit"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:textSize="22sp"
+                                android:textColor="#000"/>
+
+                            <TextView
+                                android:id="@+id/txt_edit"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:text="ویرایش:"
+                                android:textSize="22sp"
+                                android:textColor="#000"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp">
+
+                            <TextView
+                                android:id="@+id/txt_price_print"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:textSize="22sp"
+                                android:textColor="#000"/>
+
+                            <TextView
+                                android:id="@+id/txt_print"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:text="چاپ:"
+                                android:textSize="22sp"
+                                android:textColor="#000"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp">
+
+                            <TextView
+                                android:id="@+id/txt_price_post"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:textSize="22sp"
+                                android:textColor="#000"/>
+
+                            <TextView
+                                android:id="@+id/txt_post"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:text="پست:"
+                                android:textColor="#000"
+                                android:textSize="22sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp">
+
+                            <TextView
+                                android:id="@+id/txt_price_discount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:textSize="22sp"
+                                android:textColor="#000"/>
+
+                            <TextView
+                                android:id="@+id/txt_discount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:text="تخفیف:"
+                                android:textSize="22sp"
+                                android:textColor="#000"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#999"
+                            android:layout_margin="8dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginBottom="8dp">
+
+                            <TextView
+                                android:id="@+id/txt_price_all"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:textSize="24sp"
+                                android:textColor="#000"/>
+
+                            <TextView
+                                android:id="@+id/txt_all"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.5"
+                                android:text="جمع کل:"
+                                android:textSize="24sp"
+                                android:textColor="#000"/>
+                        </LinearLayout>
                     </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="16dp">
+                </android.support.v7.widget.CardView>
 
-                        <TextView
-                            android:id="@+id/txt_cost_edit"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:textSize="22sp"
-                            android:textColor="#000"/>
-
-                        <TextView
-                            android:id="@+id/txt_edit"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="ویرایش:"
-                            android:textSize="22sp"
-                            android:textColor="#000"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="16dp">
-
-                        <TextView
-                            android:id="@+id/txt_cost_print"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:textSize="22sp"
-                            android:textColor="#000"/>
-
-                        <TextView
-                            android:id="@+id/txt_print"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="چاپ:"
-                            android:textSize="22sp"
-                            android:textColor="#000"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="16dp">
-
-                        <TextView
-                            android:id="@+id/txt_cost_post"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:textSize="22sp"
-                            android:textColor="#000"/>
-
-                        <TextView
-                            android:id="@+id/txt_post"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="پست:"
-                            android:textColor="#000"
-                            android:textSize="22sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="16dp">
-
-                        <TextView
-                            android:id="@+id/txt_cost_discount"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:textSize="22sp"
-                            android:textColor="#000"/>
-
-                        <TextView
-                            android:id="@+id/txt_discount"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="تخفیف:"
-                            android:textSize="22sp"
-                            android:textColor="#000"/>
-                    </LinearLayout>
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#999"
-                        android:layout_margin="8dp"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:id="@+id/txt_cost_all"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:textSize="24sp"
-                            android:textColor="#000"/>
-
-                        <TextView
-                            android:id="@+id/txt_all"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:text="جمع کل:"
-                            android:textSize="24sp"
-                            android:textColor="#000"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_discount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/card_prices"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="28sp"
-                app:cardBackgroundColor="#fff"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/btn_enter_discount_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/bg_btn_enter_discount_code"
-                        android:text="اعمال کد"
-                        android:textColor="#fff"
-                        android:textSize="18sp"
-                        android:gravity="center"
-                        android:padding="8dp"/>
-
-                    <EditText
-                        android:id="@+id/edt_txt_discount_code"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.8"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginRight="16dp"
-                        android:background="#00ffffff"
-                        android:hint="کد تخفیف را وارد نمایید"
-                        android:textSize="18sp"
-                        android:padding="8dp"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_caption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/card_discount"
-                app:cardBackgroundColor="#fff"
-                app:cardCornerRadius="28dp"
-                app:cardUseCompatPadding="true"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp">
-
-                <LinearLayout
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_discount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingRight="16dp"
-                    android:paddingLeft="16dp"
-                    android:orientation="vertical">
+                    app:layout_constraintTop_toBottomOf="@+id/card_prices"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="28sp"
+                    app:cardBackgroundColor="#fff"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp">
 
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/btn_enter_discount_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_btn_enter_discount_code"
+                            android:text="اعمال کد"
+                            android:textColor="#fff"
+                            android:textSize="18sp"
+                            android:gravity="center"
+                            android:padding="8dp"/>
+
+                        <EditText
+                            android:id="@+id/edt_txt_discount_code"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.8"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginRight="16dp"
+                            android:background="#00ffffff"
+                            android:hint="کد تخفیف را وارد نمایید"
+                            android:textSize="18sp"
+                            android:padding="8dp"
+                            android:singleLine="true"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/card_discount"
+                    app:cardBackgroundColor="#fff"
+                    app:cardCornerRadius="28dp"
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="قبل از پرداخت مطالعه فرمایید"
-                        android:textColor="#000"
-                        android:textSize="18sp"
-                        android:textAlignment="center"/>
+                        android:gravity="right"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:paddingRight="16dp"
+                        android:paddingLeft="16dp"
+                        android:orientation="vertical">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_payment_caption"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="قبل از پرداخت مطالعه فرمایید"
+                            android:textColor="#000"
+                            android:textSize="18sp"
+                            android:textAlignment="center"/>
 
-    <LinearLayout
-        android:id="@+id/lay_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_payment_caption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
 
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/lay_buttons"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:background="@drawable/bg_btn_back"
-            android:text="برگشت"
-            android:textColor="#fff"
-            android:textSize="28sp"/>
-        <Button
-            android:id="@+id/btn_purchase"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:background="@drawable/bg_btn_pay"
-            android:text="پرداخت"
-            android:textColor="#fff"
-            android:textSize="28sp"/>
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:background="@drawable/bg_btn_back"
+                android:text="برگشت"
+                android:textColor="#fff"
+                android:textSize="28sp"/>
+            <Button
+                android:id="@+id/btn_purchase"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:background="@drawable/bg_btn_pay"
+                android:text="پرداخت"
+                android:textColor="#fff"
+                android:textSize="28sp"/>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/lay_no_con"
+        layout="@layout/layout_no_connection"
+        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>

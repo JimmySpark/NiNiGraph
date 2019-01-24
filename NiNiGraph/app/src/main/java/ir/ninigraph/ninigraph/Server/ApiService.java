@@ -6,17 +6,52 @@ import ir.ninigraph.ninigraph.Model.Ads;
 import ir.ninigraph.ninigraph.Model.Discount;
 import ir.ninigraph.ninigraph.Model.OccasionalCategory;
 import ir.ninigraph.ninigraph.Model.PaymentCaption;
+import ir.ninigraph.ninigraph.Model.PersonalInfo;
 import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.Model.Prices;
+import ir.ninigraph.ninigraph.Model.SMS;
+import ir.ninigraph.ninigraph.Model.Save;
 import ir.ninigraph.ninigraph.Model.Theme;
 import ir.ninigraph.ninigraph.Model.ThemeCategory;
+import ir.ninigraph.ninigraph.Model.Verification;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
+
+    //SMS Verification
+    @POST("Login/code_send.php")
+    @FormUrlEncoded
+    Call<List<SMS>> sendSMS(@Field("phone") String phone);
+
+    @POST("Login/code_check.php")
+    @FormUrlEncoded
+    Call<List<Verification>> checkCode(
+            @Field("phone") String phone,
+            @Field("code") String code
+    );
+
+    //Info
+    @POST("User/info_save.php")
+    @FormUrlEncoded
+    Call<List<Save>> saveInfo(
+            @Field("id") int id,
+            @Field("name") String name,
+            @Field("state") String state,
+            @Field("city") String city,
+            @Field("address") String address,
+            @Field("postal_code") String postal_code
+    );
+
+    @POST("User/info_get.php")
+    @FormUrlEncoded
+    Call<List<PersonalInfo>> getInfo(@Field("id") int id);
 
     //Picture
     @GET("Slider/slider_get.php")

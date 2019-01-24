@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,16 +15,20 @@ import java.util.Calendar;
 
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Util.DateConvertor;
+import ir.ninigraph.ninigraph.Util.NetworkUtil;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class PaymentUnsuccessfulActivity extends AppCompatActivity {
 
     //Values
     Context context = this;
+    ConstraintLayout lay_parent, lay_no_con;
+    Button btn_try_again;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     TextView txt_date_time, txt_refId, txt_price, txt_description;
     Button btn_back;
+    boolean isConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +45,21 @@ public class PaymentUnsuccessfulActivity extends AppCompatActivity {
         txt_price = findViewById(R.id.txt_price);
         txt_description = findViewById(R.id.txt_description);
         btn_back = findViewById(R.id.btn_back);
+        lay_parent = findViewById(R.id.lay_parent);
+        lay_no_con = findViewById(R.id.lay_no_con);
+        btn_try_again = findViewById(R.id.btn_try_again);
 
+
+        //Check Connection
+        checkConnection();
+
+        btn_try_again.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                checkConnection();
+            }
+        });
 
         //Set Data
         //..Data And Time
@@ -80,6 +99,23 @@ public class PaymentUnsuccessfulActivity extends AppCompatActivity {
                 startActivity(new Intent(context, MainMenuActivity.class));
             }
         });
+    }
+
+    //Classes
+    private void checkConnection(){
+
+        isConnected = NetworkUtil.isConnected(context);
+
+        if (!isConnected){
+
+            lay_parent.setVisibility(View.GONE);
+            lay_no_con.setVisibility(View.VISIBLE);
+        }
+        else {
+
+            lay_parent.setVisibility(View.VISIBLE);
+            lay_no_con.setVisibility(View.GONE);
+        }
     }
 
     @Override

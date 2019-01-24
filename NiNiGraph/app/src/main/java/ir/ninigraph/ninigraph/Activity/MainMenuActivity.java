@@ -3,9 +3,11 @@ package ir.ninigraph.ninigraph.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -48,6 +50,7 @@ public class MainMenuActivity extends AppCompatActivity {
     //Values
     Context context = this;
     TextView txt_logo_title;
+    SharedPreferences preferences;
     public static TextView txt_occasional_title;
     public static ImageView img_back_category;
     public static RecyclerView recycler_occasional, recycler_occasional_category;
@@ -57,7 +60,7 @@ public class MainMenuActivity extends AppCompatActivity {
     RecyclerView recycler_ads, recycler_newest;
     ss.com.bannerslider.Slider slider;
     SwipeRefreshLayout refreshLayout;
-    ConstraintLayout lay_main_menu, lay_no_con;
+    ConstraintLayout lay_parent, lay_no_con;
     Button btn_try_again;
     boolean isConnected, doubleBackToExitPressedOnce;
 
@@ -65,6 +68,9 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        //Values
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         //Views
         txt_logo_title = findViewById(R.id.txt_logo_title);
@@ -81,7 +87,7 @@ public class MainMenuActivity extends AppCompatActivity {
         recycler_occasional = findViewById(R.id.recycler_occasional);
         recycler_occasional_category = findViewById(R.id.recycler_occasional_category);
         refreshLayout = findViewById(R.id.refresh_layout);
-        lay_main_menu = findViewById(R.id.lay_main_menu);
+        lay_parent = findViewById(R.id.lay_parent);
         lay_no_con = findViewById(R.id.lay_no_con);
         btn_try_again = findViewById(R.id.btn_try_again);
         img_back_category = findViewById(R.id.img_back_category);
@@ -122,6 +128,9 @@ public class MainMenuActivity extends AppCompatActivity {
                         public void onClick(View v) {
 
                             hideMenuItems();
+                            Intent intent = new Intent(context, PersonalInfoActivity.class);
+                            intent.putExtra("edit_mode", true);
+                            startActivity(intent);
                         }
                     });
 
@@ -229,26 +238,46 @@ public class MainMenuActivity extends AppCompatActivity {
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.dismiss();
-                startActivity(new Intent(context, NewOrderActivity.class));
+
+                if (preferences.getBoolean("isInfoEntered", false))
+
+                    startActivity(new Intent(context, NewOrderActivity.class));
+                else
+                    remindEnterInfo();
             }
         });
         //Drawing
         btn_drawing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.dismiss();
+
+                if (preferences.getBoolean("isInfoEntered", false))
+
+                    Toast.makeText(context, "طراحی چهره", Toast.LENGTH_SHORT).show();
+                else
+                    remindEnterInfo();
             }
         });
         //Print
         btn_print.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dialog.dismiss();
+
+                if (preferences.getBoolean("isInfoEntered", false))
+
+                    Toast.makeText(context, "چاپ", Toast.LENGTH_SHORT).show();
+                else
+                    remindEnterInfo();
             }
         });
 
-        //Change Display
+        //Change Layout
         Display display = (getWindowManager().getDefaultDisplay());
         Point size = new Point();
         display.getSize(size);
@@ -379,12 +408,12 @@ public class MainMenuActivity extends AppCompatActivity {
 
         if (!isConnected){
 
-            lay_main_menu.setVisibility(View.GONE);
+            lay_parent.setVisibility(View.GONE);
             lay_no_con.setVisibility(View.VISIBLE);
         }
         else {
 
-            lay_main_menu.setVisibility(View.VISIBLE);
+            lay_parent.setVisibility(View.VISIBLE);
             lay_no_con.setVisibility(View.GONE);
             img_back_category.setVisibility(View.GONE);
             txt_occasional_title.setText("مناسبتی ها");
@@ -396,12 +425,38 @@ public class MainMenuActivity extends AppCompatActivity {
             getOccasionalCategory();
         }
     }
+    private void remindEnterInfo(){
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setMessage("اطلاعات کاربری شما کامل نیست، برای ثبت سفارش نیاز به تکمیل آن دارید");
+        builder.setPositiveButton("باشه، کامل میکنم", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                startActivity(new Intent(context, PersonalInfoActivity.class));
+            }
+        });
+        builder.setNegativeButton("بعدا کامل میکنم", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dialog));
+        dialog.show();
+
+        //Change Layout
+        Display display = (getWindowManager().getDefaultDisplay());
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        width = (int)((width) * (((double) 4 / 5)));
+        dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+
+    //Override Methods
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
     @Override
     public void onBackPressed() {
 

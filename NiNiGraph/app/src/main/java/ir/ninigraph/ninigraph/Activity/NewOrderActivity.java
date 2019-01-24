@@ -2,22 +2,27 @@ package ir.ninigraph.ninigraph.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
 
+import co.ronash.pushe.Pushe;
 import ir.ninigraph.ninigraph.Adapter.RecyclerThemeCategoryAdapter;
 import ir.ninigraph.ninigraph.Model.ThemeCategory;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Server.ApiClient;
 import ir.ninigraph.ninigraph.Server.ApiService;
+import ir.ninigraph.ninigraph.Util.NetworkUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,10 +32,13 @@ public class NewOrderActivity extends AppCompatActivity {
 
     //Values
     Context context = this;
+    ConstraintLayout lay_parent, lay_no_con;
+    Button btn_try_again;
     RecyclerView recycler_theme_category;
     ProgressBar progressBar;
     ImageView img_back;
     public static TextView txt_choose;
+    boolean isConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +50,21 @@ public class NewOrderActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         img_back = findViewById(R.id.img_back);
         txt_choose = findViewById(R.id.txt_choose);
+        lay_parent = findViewById(R.id.lay_parent);
+        lay_no_con = findViewById(R.id.lay_no_con);
+        btn_try_again = findViewById(R.id.btn_try_again);
 
 
-        //Get Data From Server
-        getThemeCategory();
+        //Check Connection
+        checkConnection();
+
+        btn_try_again.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                checkConnection();
+            }
+        });
 
         //Back
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +77,24 @@ public class NewOrderActivity extends AppCompatActivity {
     }
 
     //Classes
+    private void checkConnection(){
+
+        isConnected = NetworkUtil.isConnected(context);
+
+        if (!isConnected){
+
+            lay_parent.setVisibility(View.GONE);
+            lay_no_con.setVisibility(View.VISIBLE);
+        }
+        else {
+
+            lay_parent.setVisibility(View.VISIBLE);
+            lay_no_con.setVisibility(View.GONE);
+
+            //Get Data From Server
+            getThemeCategory();
+        }
+    }
     private void getThemeCategory(){
 
         progressBar.setVisibility(View.VISIBLE);

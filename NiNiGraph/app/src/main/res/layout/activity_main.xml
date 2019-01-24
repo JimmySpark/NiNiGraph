@@ -8,119 +8,122 @@
     tools:context="ir.ninigraph.ninigraph.Activity.MainActivity"
     android:background="@mipmap/bg_primary">
 
-    <ImageView
-        android:id="@+id/img_logo"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/lay_parent"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:src="@drawable/logo"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="16dp"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txt_enter_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/img_logo"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="64dp"
-        android:text="@string/enter_phone"
-        android:textSize="22sp"
-        android:textColor="#000"/>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/txt_enter_phone"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginLeft="64dp"
-        app:cardBackgroundColor="#fff"
-        app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="1dp"
-        app:contentPadding="4dp">
-
-        <EditText
-            android:id="@+id/edt_txt_phone_number"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="#00ffffff"
-            android:hint="@string/hint_number_phone"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:maxLength="11"
-            android:inputType="phone"
-            android:layout_gravity="center"/>
-
-    </android.support.v7.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/card_phone_number"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="4dp"
-        android:gravity="center">
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/logo"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="16dp"/>
 
         <TextView
+            android:id="@+id/txt_enter_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login_caption_part3"
-            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/img_logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="64dp"
+            android:text="@string/enter_phone"
+            android:textSize="22sp"
             android:textColor="#000"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_phone_number"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=' "'
-            android:textSize="14sp"
-            android:textColor="#000"/>
+            app:layout_constraintTop_toBottomOf="@+id/txt_enter_phone"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="64dp"
+            android:layout_marginLeft="64dp"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="10dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/edt_txt_phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00ffffff"
+                android:hint="@string/hint_number_phone"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:maxLength="11"
+                android:inputType="phone"
+                android:layout_gravity="center"/>
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_caption_part2"
-            android:textSize="14sp"
-            android:textColor="@color/colorAccent"/>
+            app:layout_constraintTop_toBottomOf="@+id/card_phone_number"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="4dp"
+            android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='" '
-            android:textSize="14sp"
-            android:textColor="#000"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_caption_part3"
+                android:textSize="14sp"
+                android:textColor="#000"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_caption_part1"
-            android:textSize="14sp"
-            android:textColor="#000"/>
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=' "'
+                android:textSize="14sp"
+                android:textColor="#000"/>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="64dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginRight="98dp"
-        app:cardBackgroundColor="@color/colorAccent"
-        app:cardCornerRadius="18dp"
-        app:cardElevation="12dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_caption_part2"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='" '
+                android:textSize="14sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_caption_part1"
+                android:textSize="14sp"
+                android:textColor="#000"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#00ffffff"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="64dp"
+            android:layout_marginLeft="98dp"
+            android:layout_marginRight="98dp"
+            android:background="@drawable/bg_button_color_accent"
             android:text="@string/login"
             android:textSize="34sp"
             android:textColor="#fff"
             android:textStyle="bold"/>
-    </android.support.v7.widget.CardView>
+    </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/lay_no_con"
+        layout="@layout/layout_no_connection"
+        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>
