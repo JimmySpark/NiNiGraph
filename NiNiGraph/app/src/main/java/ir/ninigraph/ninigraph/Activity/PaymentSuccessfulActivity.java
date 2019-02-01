@@ -3,12 +3,17 @@ package ir.ninigraph.ninigraph.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -24,11 +29,11 @@ public class PaymentSuccessfulActivity extends AppCompatActivity {
     //Values
     Context context = this;
     ConstraintLayout lay_parent, lay_no_con;
-    Button btn_try_again;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     TextView txt_date_time, txt_refId, txt_price, txt_description;
-    Button btn_send_pics, btn_back;
+    Button btn_send_pics, btn_back, btn_try_again;
+    public static AlertDialog dialog;
     boolean isConnected;
 
     @Override
@@ -81,9 +86,21 @@ public class PaymentSuccessfulActivity extends AppCompatActivity {
         txt_date_time.setText(year + month + day + hour + minute);
 
         //..Info
-        txt_refId.setText(getIntent().getExtras().getString("refId"));
-        txt_price.setText(getIntent().getExtras().getLong("price") + "");
-        txt_description.setText(getIntent().getExtras().getString("des"));
+        if (getIntent().getBooleanExtra("free", false)){
+
+            txt_refId.setText(" - ");
+            txt_price.setText("رایگان");
+            txt_description.setText(getIntent().getExtras().getString("des"));
+        }
+        else {
+
+            txt_refId.setText(getIntent().getExtras().getString("refId"));
+            txt_price.setText(getIntent().getExtras().getLong("price") + "");
+            txt_description.setText(getIntent().getExtras().getString("des"));
+        }
+
+        if (getIntent().getBooleanExtra("result", true))
+            showNotSavedDialog();
 
         //Send Pics
         btn_send_pics.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +151,25 @@ public class PaymentSuccessfulActivity extends AppCompatActivity {
             lay_parent.setVisibility(View.VISIBLE);
             lay_no_con.setVisibility(View.GONE);
         }
+    }
+    private void showNotSavedDialog(){
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_order_not_saved, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(view);
+        builder.setCancelable(true);
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dialog));
+        dialog.show();
+
+        Display display = (getWindowManager().getDefaultDisplay());
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        width = (int)((width) * ((float)4 / 5));
+        dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     //Override Methods

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardUseCompatPadding="true"
+        app:contentPaddingTop="4dp"
+        app:contentPaddingBottom="4dp"
+        app:contentPaddingRight="8dp"
+        app:contentPaddingLeft="8dp"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/txt_order_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingRight="4dp"
+                    android:paddingLeft="4dp"
+                    android:textSize="14sp"
+                    android:textColor="#000"
+                    android:textAlignment="center"
+                    android:background="@drawable/bg_order_id"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" عدد عکس کودک"
+                        android:textSize="18sp"
+                        android:textColor="#000"/>
+
+                    <TextView
+                        android:id="@+id/txt_order_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#000"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="طراحی "
+                        android:textSize="18sp"
+                        android:textColor="#000"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.6"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp">
+
+                    <TextView
+                        android:id="@+id/txt_order_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="در دست طراح"
+                        android:textSize="14sp"
+                        android:textColor="#000"
+                        android:layout_alignParentLeft="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="وضعیت سفارش: "
+                        android:textSize="14sp"
+                        android:textColor="#000"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/txt_order_image_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ارسال نشده"
+                        android:textSize="14sp"
+                        android:textColor="#000"
+                        android:layout_alignParentLeft="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="وضعیت عکس های ارسالی:"
+                        android:textSize="14sp"
+                        android:textColor="#000"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#999"
+                android:layout_marginTop="8dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <TextView
+                    android:id="@+id/txt_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_weight="0.5"
+                    android:text="97/8/29"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/txt_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/txt_date"
+                    android:layout_marginLeft="8dp"
+                    android:layout_weight="0.5"
+                    android:text="22:39"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="مبلغ پرداخت شده:"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/txt_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/price"
+                    android:layout_marginRight="8dp"
+                    android:text="13500"
+                    android:textSize="14sp"
+                    android:textColor="#57b345"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

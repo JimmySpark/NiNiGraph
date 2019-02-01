@@ -60,6 +60,21 @@
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?attr/actionBarSize"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/colorAccent"
+            app:itemIconTint="@drawable/bottom_nav_item_tint"/>
+
     </android.support.constraint.ConstraintLayout>
 
     <include

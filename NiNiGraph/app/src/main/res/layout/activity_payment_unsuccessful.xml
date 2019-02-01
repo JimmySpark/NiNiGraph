@@ -53,7 +53,7 @@
                             app:contentPadding="4dp">
 
                             <TextView
-                                android:id="@+id/txt_payment_title"
+                                android:id="@+id/txt_order_count"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="پرداخت ناموفق"

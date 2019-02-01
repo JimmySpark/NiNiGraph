@@ -13,13 +13,14 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.ninigraph.ninigraph.Activity.NewOrderActivity;
-import ir.ninigraph.ninigraph.Activity.PaymentActivity;
+import ir.ninigraph.ninigraph.Activity.PaymentEditActivity;
 import ir.ninigraph.ninigraph.Model.Theme;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Util.GlideApp;
@@ -89,6 +90,9 @@ public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdap
                     selected_lists.add(pos, selected_theme);
                     NewOrderActivity.txt_choose.setVisibility(View.VISIBLE);
 
+                    //Toast.makeText(context, "theme: " + selected_theme, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "list: " + selected_lists, Toast.LENGTH_SHORT).show();
+
                     //..Show Selected Themes Count
                     txt_selected_count.setText(selected_theme.size() + "");
 
@@ -97,10 +101,9 @@ public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdap
                         @Override
                         public void onClick(View v) {
 
-                            Intent intent = new Intent(context, PaymentActivity.class);
+                            Intent intent = new Intent(context, PaymentEditActivity.class);
                             for (int i = 0; i < selected_lists.size(); i++){
 
-                                editor.putString("order_type", "edit").apply();
                                 intent.putExtra("count", selected_lists.size());
                                 intent.putIntegerArrayListExtra("selected_themes" + i, selected_lists.get(i));
                             }

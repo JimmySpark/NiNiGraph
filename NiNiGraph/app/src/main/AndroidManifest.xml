@@ -82,7 +82,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".Activity.PaymentActivity"
+            android:name=".Activity.PaymentEditActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan">
             <intent-filter>

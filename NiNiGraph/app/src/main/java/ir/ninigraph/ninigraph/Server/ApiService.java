@@ -1,10 +1,14 @@
 package ir.ninigraph.ninigraph.Server;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import ir.ninigraph.ninigraph.Model.Ads;
 import ir.ninigraph.ninigraph.Model.Discount;
 import ir.ninigraph.ninigraph.Model.OccasionalCategory;
+import ir.ninigraph.ninigraph.Model.OrderEdit;
 import ir.ninigraph.ninigraph.Model.PaymentCaption;
 import ir.ninigraph.ninigraph.Model.PersonalInfo;
 import ir.ninigraph.ninigraph.Model.Picture;
@@ -90,4 +94,17 @@ public interface ApiService {
 
     @GET("Payment-Caption/caption_get.php")
     Call<List<PaymentCaption>> getCaption();
+
+    @POST("Order/Edit/order_get.php")
+    @FormUrlEncoded
+    Call<List<OrderEdit>> getOrderEdit(@Field("id") int id);
+
+    @POST("Order/Edit/order_save.php")
+    @FormUrlEncoded
+    Call<Save> saveOrderEdit(
+            @Field("count") int count,
+            @Field("id") int id,
+            @Field("themes") JSONArray themes,
+            @Field("price") long price
+    );
 }

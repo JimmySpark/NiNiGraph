@@ -15,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,14 +29,18 @@ import com.zarinpal.ewallets.purchase.OnCallbackVerificationPaymentListener;
 import com.zarinpal.ewallets.purchase.PaymentRequest;
 import com.zarinpal.ewallets.purchase.ZarinPal;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import co.ronash.pushe.Pushe;
 import ir.ninigraph.ninigraph.Adapter.RecyclerPaymentCaptionAdapter;
 import ir.ninigraph.ninigraph.Model.Discount;
 import ir.ninigraph.ninigraph.Model.PaymentCaption;
 import ir.ninigraph.ninigraph.Model.Prices;
+import ir.ninigraph.ninigraph.Model.Save;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Server.ApiClient;
 import ir.ninigraph.ninigraph.Server.ApiService;
@@ -47,33 +50,30 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class PaymentActivity extends AppCompatActivity {
+public class PaymentEditActivity extends AppCompatActivity {
 
     //Values
     Context context = this;
     ConstraintLayout lay_parent, lay_no_con;
-    Button btn_try_again;
+    Button btn_try_again, btn_purchase, btn_back;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     AlertDialog dialog;
-    TextView txt_payment_title, txt_drawing, txt_price_drawing, txt_edit, txt_price_edit, txt_print, txt_price_print,
+    TextView txt_order_count, txt_drawing, txt_price_drawing, txt_edit, txt_price_edit, txt_print, txt_price_print,
             txt_post, txt_price_post, txt_discount, txt_price_discount, txt_all, txt_price_all, btn_enter_discount_code;
     EditText edt_txt_discount_code;
     RecyclerView recycler_payment_caption;
-    Button btn_purchase, btn_back;
     List<Integer> selected_themes;
-    String order_type;
-    long price_drawing, price_edit, price_print, price_post, price_all, discount;
-    int order_count;
-    boolean isPreferencesSet, isDiscountApplied, needToResetData, isConnected;
+    long discount;
+    boolean isPreferencesSet, isDiscountApplied, needToResetData, isConnected, result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_payment_edit);
 
         //Views
-        txt_payment_title = findViewById(R.id.txt_payment_title);
+        txt_order_count = findViewById(R.id.txt_order_count);
         txt_price_drawing = findViewById(R.id.txt_price_drawing);
         txt_price_edit = findViewById(R.id.txt_price_edit);
         txt_price_print = findViewById(R.id.txt_price_print);
@@ -99,7 +99,6 @@ public class PaymentActivity extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         editor = preferences.edit();
         selected_themes = new ArrayList<>();
-        order_type = preferences.getString("order_type", null);
         isPreferencesSet = preferences.getBoolean("isPreferencesSet", false);
         isDiscountApplied = false;
         needToResetData = true;
@@ -107,7 +106,6 @@ public class PaymentActivity extends AppCompatActivity {
 
         //Check Connection
         checkConnection();
-
         btn_try_again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,9 +136,8 @@ public class PaymentActivity extends AppCompatActivity {
                 if (isDiscountApplied && s.length() == 0){
 
                     txt_price_discount.setText("0");
-                    txt_price_all.setText(price_all + preferences.getLong("discount", 0) + "");
-                    editor.putLong("all", price_all + preferences.getLong("discount", 0)).apply();
-                    price_all = preferences.getLong("all", 0);
+                    txt_price_all.setText(preferences.getLong("price_all", 0) + preferences.getLong("discount", 0) + "");
+                    editor.putLong("price_all", preferences.getLong("price_all", 0) + preferences.getLong("discount", 0)).apply();
 
                     isDiscountApplied = false;
                 }
@@ -157,16 +154,12 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                editor.remove("order_type").apply();
                 editor.remove("isPreferencesSet").apply();
-                editor.remove("drawing").apply();
-                editor.remove("edit").apply();
-                editor.remove("print").apply();
-                editor.remove("post").apply();
-                editor.remove("all").apply();
+                editor.remove("price_edit").apply();
+                editor.remove("price_all").apply();
                 editor.remove("order_count").apply();
                 editor.remove("discount").apply();
-                PaymentActivity.super.onBackPressed();
+                PaymentEditActivity.super.onBackPressed();
             }
         });
     }
@@ -194,73 +187,56 @@ public class PaymentActivity extends AppCompatActivity {
             }
             else {
 
-                price_drawing = preferences.getLong("drawing", 0);
-                price_edit = preferences.getLong("edit", 0);
-                price_print = preferences.getLong("print", 0);
-                price_post = preferences.getLong("post", 0);
+                if (txt_price_all.getText().equals("")){
 
-                if (order_type.equals("edit")){
-
-                    price_all = preferences.getLong("all", 0);
-                    order_count = preferences.getInt("order_count", 0);
-
-                    if (txt_price_all.getText().equals("")){
-
-                        editor.remove("order_type").apply();
-                        editor.remove("isPreferencesSet").apply();
-                        editor.remove("drawing").apply();
-                        editor.remove("edit").apply();
-                        editor.remove("print").apply();
-                        editor.remove("post").apply();
-                        editor.remove("all").apply();
-                        editor.remove("order_count").apply();
-                        editor.remove("discount").apply();
-                        PaymentActivity.super.onBackPressed();
-                    }
+                    editor.remove("isPreferencesSet").apply();
+                    editor.remove("price_edit").apply();
+                    editor.remove("price_all").apply();
+                    editor.remove("order_count").apply();
+                    editor.remove("discount").apply();
+                    PaymentEditActivity.super.onBackPressed();
                 }
             }
 
-            //Order Type Action
-            if (order_type.equals("edit")){
+            //Payment
+            Uri data = getIntent().getData();
+            ZarinPal.getPurchase(context).verificationPayment(data, new OnCallbackVerificationPaymentListener() {
+                @Override
+                public void onCallbackResultVerificationPayment(boolean isPaymentSuccess, String refID, PaymentRequest paymentRequest) {
 
-                //Payment
-                Uri data = getIntent().getData();
-                ZarinPal.getPurchase(context).verificationPayment(data, new OnCallbackVerificationPaymentListener() {
-                    @Override
-                    public void onCallbackResultVerificationPayment(boolean isPaymentSuccess, String refID, PaymentRequest paymentRequest) {
+                    if (isPaymentSuccess){
 
-                        if (isPaymentSuccess){
-
-                            editor.remove("isPreferencesSet").apply();
-                            Intent intent = new Intent(context, PaymentSuccessfulActivity.class);
-                            intent.putExtra("refId", refID);
-                            intent.putExtra("price", price_all);
-                            intent.putExtra("des", "طراحی "+ order_count + " عدد عکس");
-                            startActivity(intent);
-                            finish();
-
-                        }
-                        else{
-
-                            editor.remove("isPreferencesSet").apply();
-                            Intent intent = new Intent(context, PaymentUnsuccessfulActivity.class);
-                            intent.putExtra("price", price_all);
-                            intent.putExtra("des", "طراحی "+ order_count + " عدد عکس");
-                            startActivity(intent);
-                            finish();
-                        }
+                        result = saveOrder();
+                        editor.remove("isPreferencesSet").apply();
+                        Intent intent = new Intent(context, PaymentSuccessfulActivity.class);
+                        intent.putExtra("result", result);
+                        intent.putExtra("refId", refID);
+                        intent.putExtra("price", preferences.getLong("price_all", 0));
+                        intent.putExtra("des", "طراحی "+ preferences.getInt("order_count", 0) + " عدد عکس");
+                        startActivity(intent);
+                        finish();
                     }
-                });
+                    else{
 
-                btn_purchase.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        showLoadingDialog();
-                        payment(price_all);
+                        saveOrder();
+                        editor.remove("isPreferencesSet").apply();
+                        Intent intent = new Intent(context, PaymentUnsuccessfulActivity.class);
+                        intent.putExtra("price", preferences.getLong("price_all", 0));
+                        intent.putExtra("des", "طراحی "+ preferences.getInt("order_count", 0) + " عدد عکس");
+                        startActivity(intent);
+                        finish();
                     }
-                });
-            }
+                }
+            });
+
+            btn_purchase.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    showLoadingDialog();
+                    payment(preferences.getLong("price_all", 0));
+                }
+            });
 
             //Get Caption
             getCaption();
@@ -280,6 +256,9 @@ public class PaymentActivity extends AppCompatActivity {
             }
         }
 
+        for (int y = 0; y < selected_themes.size(); y++)
+            editor.putInt("theme" + y, selected_themes.get(y)).apply();
+
         //Get Prices
         ApiService apiService = ApiClient.getApi().create(ApiService.class);
         Call<List<Prices>> call = apiService.getPrices();
@@ -294,33 +273,15 @@ public class PaymentActivity extends AppCompatActivity {
                     if (response.body() != null){
 
                         //Preferences
-                        editor.putLong("drawing", response.body().get(0).getDrawing()).apply();
-                        editor.putLong("edit", response.body().get(0).getEdit()).apply();
-                        editor.putLong("print", response.body().get(0).getPrint()).apply();
-                        editor.putLong("post", response.body().get(0).getPost()).apply();
+                        editor.putLong("price_edit", response.body().get(0).getEdit()).apply();
 
-                        price_drawing = preferences.getLong("drawing", 0);
-                        price_edit = preferences.getLong("edit", 0);
-                        price_print = preferences.getLong("print", 0);
-                        price_post = preferences.getLong("post", 0);
+                        txt_edit.setTextColor(Color.parseColor("#000000"));
 
-                        if (order_type.equals("edit")){
-
-                            txt_drawing.setTextColor(Color.parseColor("#999999"));
-                            txt_print.setTextColor(Color.parseColor("#999999"));
-                            txt_post.setTextColor(Color.parseColor("#999999"));
-
-                            txt_payment_title.setText("هزینه ویرایش " + selected_themes.size() + " عدد عکس");
-                            txt_price_drawing.setText("0");
-                            txt_price_print.setText("0");
-                            txt_price_post.setText("0");
-                            txt_price_discount.setText("0");
-                            txt_price_edit.setText(selected_themes.size() * price_edit + "");
-                            price_all = selected_themes.size() * price_edit;
-                            editor.putLong("all", selected_themes.size() * price_edit).apply();
-                            editor.putInt("order_count", selected_themes.size()).apply();
-                            txt_price_all.setText(price_all + "");
-                        }
+                        txt_order_count.setText(selected_themes.size() + "");
+                        txt_price_edit.setText(selected_themes.size() * preferences.getLong("price_edit", 0) + "");
+                        editor.putLong("price_all", selected_themes.size() * preferences.getLong("price_edit", 0)).apply();
+                        editor.putInt("order_count", selected_themes.size()).apply();
+                        txt_price_all.setText(preferences.getLong("price_all", 0) + "");
                     }
                 }
             }
@@ -328,7 +289,7 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Prices>> call, Throwable t) {
 
-                Toast.makeText(PaymentActivity.this, "خطا", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentEditActivity.this, "خطا", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -372,42 +333,39 @@ public class PaymentActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     if (response.body() != null){
 
-                        discount = ((selected_themes.size() * price_edit) * response.body().get(0).getPercent() / 100);
+                        discount = ((selected_themes.size() * preferences.getLong("price_edit", 0)) * response.body().get(0).getPercent() / 100);
 
-                        if ((selected_themes.size() * price_edit) - discount < 100){
+                        if ((selected_themes.size() * preferences.getLong("price_edit", 0)) - discount < 100){
 
-                            if ((selected_themes.size() * price_edit) - discount == 0){
+                            if ((selected_themes.size() * preferences.getLong("price_edit", 0)) - discount == 0){
 
                                 txt_price_discount.setText(discount + "");
                                 txt_price_all.setText("رایگان");
                                 editor.putLong("discount", discount).apply();
-                                editor.putLong("all", 0).apply();
-                                price_all = preferences.getLong("all", 0);
+                                editor.putLong("price_all", 0).apply();
                             }
                             else {
 
                                 Long x = (100 - discount) + discount;
-                                txt_price_discount.setText((selected_themes.size() * price_edit) - x +"");
+                                txt_price_discount.setText((selected_themes.size() * preferences.getLong("price_edit", 0)) - x +"");
                                 txt_price_all.setText("100");
-                                editor.putLong("discount", (selected_themes.size() * price_edit) - x).apply();
-                                editor.putLong("all", 100).apply();
-                                price_all = preferences.getLong("all", 0);
+                                editor.putLong("discount", (selected_themes.size() * preferences.getLong("price_edit", 0)) - x).apply();
+                                editor.putLong("price_all", 100).apply();
                             }
                         }
                         else {
 
                             txt_price_discount.setText(discount + "");
-                            txt_price_all.setText(((selected_themes.size() * price_edit) - discount) + "");
+                            txt_price_all.setText(((selected_themes.size() * preferences.getLong("price_edit", 0)) - discount) + "");
                             editor.putLong("discount", discount).apply();
-                            editor.putLong("all", (selected_themes.size() * price_edit) - discount).apply();
-                            price_all = preferences.getLong("all", 0);
+                            editor.putLong("price_all", (selected_themes.size() * preferences.getLong("price_edit", 0)) - discount).apply();
                         }
 
                         isDiscountApplied = true;
                     }
                     else {
 
-                        Toast.makeText(PaymentActivity.this, "کد تخفیف وارد شده صحیح نیست", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PaymentEditActivity.this, "کد تخفیف وارد شده صحیح نیست", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -423,8 +381,15 @@ public class PaymentActivity extends AppCompatActivity {
         if (price == 0){
 
             dialog.dismiss();
-            Toast.makeText(context, "رایگان", Toast.LENGTH_SHORT).show();
+            result = saveOrder();
+            editor.remove("isPreferencesSet").apply();
             needToResetData = false;
+            Intent intent = new Intent(context, PaymentSuccessfulActivity.class);
+            intent.putExtra("result", result);
+            intent.putExtra("free", true);
+            intent.putExtra("des", "طراحی "+ preferences.getInt("order_count", 0) + " عدد عکس");
+            startActivity(intent);
+            finish();
         }
         else {
 
@@ -452,6 +417,50 @@ public class PaymentActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    private boolean saveOrder(){
+
+        JSONArray themes = new JSONArray();
+
+        try {
+            for (int i = 0; i < preferences.getInt("order_count", 0); i++){
+
+                JSONObject theme = new JSONObject();
+                theme.put("theme", preferences.getInt("theme" + i, 0));
+                themes.put(theme);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ApiService apiService = ApiClient.getApi().create(ApiService.class);
+        Call<Save> call = apiService.saveOrderEdit(
+                preferences.getInt("order_count", 0),
+                preferences.getInt("id", 0),
+                themes,
+                preferences.getLong("price_all", 0)
+        );
+
+        call.enqueue(new Callback<Save>() {
+            @Override
+            public void onResponse(Call<Save> call, Response<Save> response) {
+                if (response.isSuccessful()){
+                    if (response.body() != null){
+
+                        result = response.body().isResult();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Save> call, Throwable t) {
+
+                Toast.makeText(PaymentEditActivity.this, "خطا در ارسال درخواست، لطفا مجددا تلاش کنید", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return result;
     }
     private void showLoadingDialog(){
 
@@ -489,11 +498,8 @@ public class PaymentActivity extends AppCompatActivity {
 
             editor.remove("order_type").apply();
             editor.remove("isPreferencesSet").apply();
-            editor.remove("drawing").apply();
-            editor.remove("edit").apply();
-            editor.remove("print").apply();
-            editor.remove("post").apply();
-            editor.remove("all").apply();
+            editor.remove("price_edit").apply();
+            editor.remove("price_all").apply();
             editor.remove("order_count").apply();
             editor.remove("discount").apply();
         }
