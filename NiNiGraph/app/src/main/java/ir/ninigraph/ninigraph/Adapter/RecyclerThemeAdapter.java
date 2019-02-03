@@ -13,13 +13,12 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import ir.ninigraph.ninigraph.Activity.NewOrderActivity;
+import ir.ninigraph.ninigraph.Activity.NewEditOrderActivity;
 import ir.ninigraph.ninigraph.Activity.PaymentEditActivity;
 import ir.ninigraph.ninigraph.Model.Theme;
 import ir.ninigraph.ninigraph.R;
@@ -88,7 +87,7 @@ public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdap
                     selected_theme.add(theme.getId());
                     selected_lists.remove(pos);
                     selected_lists.add(pos, selected_theme);
-                    NewOrderActivity.txt_choose.setVisibility(View.VISIBLE);
+                    NewEditOrderActivity.txt_choose.setVisibility(View.VISIBLE);
 
                     //Toast.makeText(context, "theme: " + selected_theme, Toast.LENGTH_SHORT).show();
                     //Toast.makeText(context, "list: " + selected_lists, Toast.LENGTH_SHORT).show();
@@ -97,7 +96,7 @@ public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdap
                     txt_selected_count.setText(selected_theme.size() + "");
 
                     //..On Choose Btn Click
-                    NewOrderActivity.txt_choose.setOnClickListener(new View.OnClickListener() {
+                    NewEditOrderActivity.txt_choose.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 

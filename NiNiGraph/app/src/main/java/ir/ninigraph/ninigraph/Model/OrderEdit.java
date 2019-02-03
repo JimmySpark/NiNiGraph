@@ -3,7 +3,7 @@ package ir.ninigraph.ninigraph.Model;
 
 public class OrderEdit {
 
-    int id, count, status, customer, image_status;
+    int id, count, status, image_status;
     String date, time;
     Long price;
 
@@ -17,10 +17,6 @@ public class OrderEdit {
 
     public int getStatus() {
         return status;
-    }
-
-    public int getCustomer() {
-        return customer;
     }
 
     public String getDate() {

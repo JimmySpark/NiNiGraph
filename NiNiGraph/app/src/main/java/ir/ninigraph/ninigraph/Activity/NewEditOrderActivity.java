@@ -9,14 +9,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
 
-import co.ronash.pushe.Pushe;
 import ir.ninigraph.ninigraph.Adapter.RecyclerThemeCategoryAdapter;
 import ir.ninigraph.ninigraph.Model.ThemeCategory;
 import ir.ninigraph.ninigraph.R;
@@ -28,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class NewOrderActivity extends AppCompatActivity {
+public class NewEditOrderActivity extends AppCompatActivity {
 
     //Values
     Context context = this;
@@ -43,7 +41,7 @@ public class NewOrderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_order);
+        setContentView(R.layout.activity_new_edit_order);
 
         //Views
         recycler_theme_category = findViewById(R.id.recycler_theme_category);

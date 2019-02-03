@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -34,6 +36,8 @@ public class OrderEditFragment extends Fragment {
     //Values
     SharedPreferences preferences;
     RecyclerView recycler_order_edit;
+    TextView txt_no_order;
+    ProgressBar progress_bar;
     int id;
 
     @Override
@@ -51,9 +55,13 @@ public class OrderEditFragment extends Fragment {
 
         //Views
         recycler_order_edit = view.findViewById(R.id.recycler_order_edit);
+        txt_no_order = view.findViewById(R.id.txt_no_order);
+        progress_bar = view.findViewById(R.id.progress_bar);
 
 
+        //Get Order From Server
         getOrderEdit();
+
         return view;
     }
 
@@ -66,17 +74,25 @@ public class OrderEditFragment extends Fragment {
         call.enqueue(new Callback<List<OrderEdit>>() {
             @Override
             public void onResponse(Call<List<OrderEdit>> call, Response<List<OrderEdit>> response) {
-                if (response.isSuccessful() && response.body() != null){
+                if (response.isSuccessful()){
+                    if (response.body() != null){
 
-                    recycler_order_edit.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    recycler_order_edit.setAdapter(new RecyclerOrderEditAdapter(getActivity(), response.body()));
+                        progress_bar.setVisibility(View.GONE);
+                        recycler_order_edit.setVisibility(View.VISIBLE);
+                        recycler_order_edit.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recycler_order_edit.setAdapter(new RecyclerOrderEditAdapter(getActivity(), response.body()));
+                    }
+                    else {
+                        progress_bar.setVisibility(View.GONE);
+                        txt_no_order.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<OrderEdit>> call, Throwable t) {
 
-                Log.i("ERrrror", t.getMessage());
+                progress_bar.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "خطا در ارسال درخواست برای دریافت اطلاعات، لطفا مجددا تلاش کنید", Toast.LENGTH_SHORT).show();
             }
         });

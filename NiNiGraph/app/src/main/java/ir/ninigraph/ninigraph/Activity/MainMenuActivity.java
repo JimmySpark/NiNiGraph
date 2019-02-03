@@ -243,7 +243,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
                 if (preferences.getBoolean("isInfoEntered", false))
 
-                    startActivity(new Intent(context, NewOrderActivity.class));
+                    startActivity(new Intent(context, NewEditOrderActivity.class));
                 else
                     remindEnterInfo();
             }

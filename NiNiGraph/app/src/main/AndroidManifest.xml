@@ -78,7 +78,7 @@
             android:name=".Activity.FollowOrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.NewOrderActivity"
+            android:name=".Activity.NewEditOrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
@@ -97,7 +97,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.PaymentSuccessfulActivity" />
-        <activity android:name=".Activity.PaymentUnsuccessfulActivity"></activity>
+        <activity android:name=".Activity.PaymentUnsuccessfulActivity" />
+        <activity android:name=".Activity.UploadEditPicActivity"></activity>
     </application>
 
 </manifest>

@@ -115,7 +115,10 @@ public class PaymentSuccessfulActivity extends AppCompatActivity {
                 editor.remove("post").apply();
                 editor.remove("all").apply();
                 editor.remove("order_count").apply();
-                startActivity(new Intent(context, FollowOrderActivity.class));
+
+                Intent intent = new Intent(context, UploadEditPicActivity.class);
+                intent.putExtra("order_id", 0);
+                startActivity(intent);
             }
         });
         //Back

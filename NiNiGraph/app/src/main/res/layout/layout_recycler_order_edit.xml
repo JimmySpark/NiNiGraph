@@ -6,8 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card_order"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:cardUseCompatPadding="true"
         app:contentPaddingTop="4dp"
@@ -73,14 +74,15 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.6"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp"
+                android:background="#53ddff">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingLeft="8dp">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/txt_order_status"
@@ -88,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:text="در دست طراح"
                         android:textSize="14sp"
-                        android:textColor="#000"
+                        android:textColor="#fff"
                         android:layout_alignParentLeft="true"/>
 
                     <TextView
@@ -96,34 +98,66 @@
                         android:layout_height="wrap_content"
                         android:text="وضعیت سفارش: "
                         android:textSize="14sp"
-                        android:textColor="#000"
+                        android:textColor="#fff"
                         android:layout_alignParentRight="true"/>
                 </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:id="@+id/btn_messages"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:paddingRight="8dp"
-                    android:paddingLeft="8dp"
-                    android:gravity="center">
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_btn_try_again"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center"
+                    android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/txt_order_image_status"
+                    <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ارسال نشده"
-                        android:textSize="14sp"
-                        android:textColor="#000"
-                        android:layout_alignParentLeft="true"/>
+                        android:background="#00ffffff"
+                        android:text="پیام ها"
+                        android:textSize="18sp"
+                        android:textColor="#fff"
+                        android:clickable="false"/>
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="وضعیت عکس های ارسالی:"
-                        android:textSize="14sp"
-                        android:textColor="#000"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
+                        android:src="@drawable/icon_message"
+                        android:layout_margin="8dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_upload_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_btn_try_again"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/btn_up_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#00ffffff"
+                        android:text="ارسال عکس"
+                        android:textSize="18sp"
+                        android:textColor="#fff"
+                        android:clickable="false"/>
+
+                    <ImageView
+                        android:id="@+id/img_up_down"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_upload"
+                        android:layout_margin="8dp"/>
+                </LinearLayout>
             </LinearLayout>
             <ImageView
                 android:layout_width="match_parent"

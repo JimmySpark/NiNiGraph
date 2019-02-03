@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import ir.ninigraph.ninigraph.Fragment.OrderDrawingFragment;
 import ir.ninigraph.ninigraph.Fragment.OrderEditFragment;
@@ -26,6 +27,7 @@ public class FollowOrderActivity extends AppCompatActivity {
     Context context = this;
     ConstraintLayout lay_parent, lay_no_con;
     Button btn_try_again;
+    ImageView img_back;
     ViewPager view_pager;
     SharedPreferences preferences;
     TabLayout tab_layout;
@@ -48,6 +50,7 @@ public class FollowOrderActivity extends AppCompatActivity {
         lay_parent = findViewById(R.id.lay_parent);
         lay_no_con = findViewById(R.id.lay_no_con);
         btn_try_again = findViewById(R.id.btn_try_again);
+        img_back = findViewById(R.id.img_back);
         view_pager = findViewById(R.id.view_pager);
         tab_layout = findViewById(R.id.bottom_nav);
 
@@ -63,10 +66,19 @@ public class FollowOrderActivity extends AppCompatActivity {
             }
         });
 
-        //getOrderEdit();
+        //Tab Layout
         setupTabLayout(view_pager);
         tab_layout.setupWithViewPager(view_pager);
         setupTabIcons();
+
+        //Back
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FollowOrderActivity.super.onBackPressed();
+            }
+        });
     }
 
     //Classes
