@@ -7,8 +7,10 @@ import java.util.List;
 
 import ir.ninigraph.ninigraph.Model.Ads;
 import ir.ninigraph.ninigraph.Model.Discount;
+import ir.ninigraph.ninigraph.Model.HomePage;
 import ir.ninigraph.ninigraph.Model.OccasionalCategory;
 import ir.ninigraph.ninigraph.Model.OrderEdit;
+import ir.ninigraph.ninigraph.Model.OrderEditTheme;
 import ir.ninigraph.ninigraph.Model.PaymentCaption;
 import ir.ninigraph.ninigraph.Model.PersonalInfo;
 import ir.ninigraph.ninigraph.Model.Picture;
@@ -19,6 +21,7 @@ import ir.ninigraph.ninigraph.Model.Theme;
 import ir.ninigraph.ninigraph.Model.ThemeCategory;
 import ir.ninigraph.ninigraph.Model.Verification;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -28,6 +31,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
+
+    @POST("api/home_page.php")
+    Call<HomePage> getHomePage(@Body String model);
 
     //SMS Verification
     @POST("Login/code_send.php")
@@ -107,4 +113,7 @@ public interface ApiService {
             @Field("themes") JSONArray themes,
             @Field("price") long price
     );
+
+    @POST("Order/Edit/order_theme_get.php")
+    Call<OrderEditTheme> getOrderEditTheme(@Body String order_id);
 }

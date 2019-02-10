@@ -39,6 +39,7 @@
     <string name="follow_order">پیگیری سفارش</string>
     <string name="edit_info">ویرایش اطلاعات</string>
     <string name="support">پشتیبانی و تماس با ما</string>
+    <string name="logout">خروج از حساب</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

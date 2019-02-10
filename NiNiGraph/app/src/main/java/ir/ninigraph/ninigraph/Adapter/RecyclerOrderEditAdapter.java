@@ -19,6 +19,7 @@ import java.util.List;
 
 import ir.ninigraph.ninigraph.Activity.UploadEditPicActivity;
 import ir.ninigraph.ninigraph.Model.OrderEdit;
+import ir.ninigraph.ninigraph.Model.OrderEditTheme;
 import ir.ninigraph.ninigraph.R;
 
 public class RecyclerOrderEditAdapter extends RecyclerView.Adapter<RecyclerOrderEditAdapter.RecyclerViewHolder>{
@@ -46,7 +47,7 @@ public class RecyclerOrderEditAdapter extends RecyclerView.Adapter<RecyclerOrder
 
         //Set Data
         holder.txt_order_count.setText(orderEdit.getCount() + "");
-        holder.txt_order_id.setText(orderEdit.getId() + "");
+        holder.txt_order_id.setText(String.valueOf(orderEdit.getId()));
         holder.txt_date.setText(orderEdit.getDate());
         holder.txt_time.setText(orderEdit.getTime());
         holder.txt_price.setText(orderEdit.getPrice() + "");

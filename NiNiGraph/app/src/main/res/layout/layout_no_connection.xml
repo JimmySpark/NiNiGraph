@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/logo"
         android:layout_marginTop="16dp"
         android:text="عدم ارتباط با اینترنت"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textSize="22sp"
         android:textColor="#000" />
 
@@ -58,27 +58,5 @@
         android:textSize="24sp"
         android:textColor="#fff"
         android:clickable="true"/>
-
-    <LinearLayout
-        android:id="@+id/lay_support"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/btn_try_again"
-        android:layout_margin="8dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ارتباط با پشتیبانی"
-            android:textSize="18sp"
-            android:textColor="#000"/>
-
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:src="@drawable/icon_support2"
-            android:layout_margin="8dp"/>
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

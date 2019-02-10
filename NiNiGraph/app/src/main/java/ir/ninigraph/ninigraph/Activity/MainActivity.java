@@ -3,6 +3,7 @@ package ir.ninigraph.ninigraph.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Locale;
 
 import co.ronash.pushe.Pushe;
 import ir.ninigraph.ninigraph.Model.SMS;
@@ -28,10 +30,14 @@ import ir.ninigraph.ninigraph.Util.NetworkUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static ApiService retroInterface;
     //Values
     Context context = this;
     SharedPreferences preferences;
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initApp();
 
         //Values
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -86,16 +93,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Classes
-    private void checkConnection(){
+    private void initApp() {
+        String languageToLoad = "fa_IR";
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
+
+        retroInterface = new Retrofit.Builder().baseUrl("http://photojavad.ir/app_server/").
+                addConverterFactory(ScalarsConverterFactory.create()).
+                addConverterFactory(GsonConverterFactory.create()).
+                build().create(ApiService.class);
+
+    }
+    private void checkConnection() {
 
         isConnected = NetworkUtil.isConnected(context);
 
-        if (!isConnected){
+        if (!isConnected) {
 
             lay_parent.setVisibility(View.GONE);
             lay_no_con.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
 
             lay_parent.setVisibility(View.VISIBLE);
             lay_no_con.setVisibility(View.GONE);
@@ -104,16 +126,15 @@ public class MainActivity extends AppCompatActivity {
             Pushe.initialize(this, true);
         }
     }
-    private void checkConnection2(){
+    private void checkConnection2() {
 
         isConnected = NetworkUtil.isConnected(context);
 
-        if (!isConnected){
+        if (!isConnected) {
 
             lay_parent.setVisibility(View.GONE);
             lay_no_con.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
 
             lay_parent.setVisibility(View.VISIBLE);
             lay_no_con.setVisibility(View.GONE);
@@ -122,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             sendSms(edt_text_phone_number.getText().toString());
         }
     }
-    private void showLoadingDialog(){
+    private void showLoadingDialog() {
 
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
 
@@ -139,10 +160,10 @@ public class MainActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        width = (int)((width) * (0.6 / 3));
+        width = (int) ((width) * (0.6 / 3));
         dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
-    private void sendSms(final String phone){
+    private void sendSms(final String phone) {
 
         //Check If Phone Start With 0
         String phone2 = phone;
@@ -156,17 +177,16 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<SMS>>() {
             @Override
             public void onResponse(Call<List<SMS>> call, Response<List<SMS>> response) {
-                if (response.isSuccessful()){
-                    if (response.body() != null){
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
 
                         dialog.dismiss();
-                        if (response.body().get(0).getStatus() == 200){
+                        if (response.body().get(0).getStatus() == 200) {
 
                             Intent intent = new Intent(getApplicationContext(), CodeVerificationActivity.class);
                             intent.putExtra("phone", finalPhone);
                             startActivity(intent);
-                        }
-                        else if (response.body().get(0).getStatus() == 411 ||
+                        } else if (response.body().get(0).getStatus() == 411 ||
                                 response.body().get(0).getStatus() == 406 ||
                                 response.body().get(0).getStatus() == 8000)
                             Toast.makeText(MainActivity.this, "لطفا شماره تلفن خود را به درستی وارد کنید", Toast.LENGTH_SHORT).show();

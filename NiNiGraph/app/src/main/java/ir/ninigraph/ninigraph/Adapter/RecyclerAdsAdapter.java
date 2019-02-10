@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import java.util.List;
 
 import ir.ninigraph.ninigraph.Model.Ads;
+import ir.ninigraph.ninigraph.Model.HomePage;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Util.GlideApp;
 
@@ -21,9 +22,9 @@ import ir.ninigraph.ninigraph.Util.GlideApp;
 public class RecyclerAdsAdapter extends RecyclerView.Adapter<RecyclerAdsAdapter.RecyclerViewHolder>{
 
     Context context;
-    List<Ads> adsList;
+    List<HomePage.AdsModel> adsList;
 
-    public RecyclerAdsAdapter(Context context, List<Ads> adsList) {
+    public RecyclerAdsAdapter(Context context, List<HomePage.AdsModel> adsList) {
         this.context = context;
         this.adsList = adsList;
     }
@@ -38,7 +39,7 @@ public class RecyclerAdsAdapter extends RecyclerView.Adapter<RecyclerAdsAdapter.
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
 
-        final Ads ads = adsList.get(position);
+        final HomePage.AdsModel ads = adsList.get(position);
 
         GlideApp
                 .with(context)

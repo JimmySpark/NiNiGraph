@@ -9,81 +9,78 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/btn_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_margin="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
                 android:text="ویرایش عکس کودک"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
-                android:textAlignment="center"/>
+                android:layout_centerInParent="true"/>
 
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/icon_edit_image"/>
-        </LinearLayout>
+                android:src="@drawable/icon_edit_image"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#999"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"/>
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/btn_drawing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_margin="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
                 android:text="طراحی چهره"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
-                android:textAlignment="center"/>
+                android:layout_centerInParent="true"/>
 
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/icon_drawing"/>
-        </LinearLayout>
+                android:src="@drawable/icon_drawing"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#999"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"/>
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/btn_print"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_margin="8dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"
                 android:text="چاپ"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
-                android:textAlignment="center"/>
+                android:layout_centerInParent="true"/>
 
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/icon_print"/>
-        </LinearLayout>
+                android:src="@drawable/icon_print"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

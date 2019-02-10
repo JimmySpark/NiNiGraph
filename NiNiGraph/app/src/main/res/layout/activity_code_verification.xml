@@ -125,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/edit_phone_number"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="#000"/>
 
             <ImageView
@@ -136,23 +136,26 @@
                 android:layout_marginLeft="24dp"/>
 
             <LinearLayout
+                android:id="@+id/btn_send_code_again"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/txt_second"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_seconds"
-                    android:textSize="16sp"
-                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:textColor="#787878"
                     android:layout_marginRight="4dp"/>
 
                 <TextView
+                    android:id="@+id/txt_send_code_again"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/send_code_again"
-                    android:textSize="16sp"
-                    android:textColor="#000"/>
+                    android:textSize="14sp"
+                    android:textColor="#787878"/>
             </LinearLayout>
 
         </LinearLayout>

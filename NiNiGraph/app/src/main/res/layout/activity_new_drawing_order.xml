@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.ninigraph.ninigraph.Activity.NewDrawingOrderActivity"
+    android:background="@mipmap/bg_primary">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card_new_drawing_order"
+        android:layout_marginBottom="108dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="8dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="18dp">
+
+            <LinearLayout
+                android:id="@+id/lay_choose_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:paddingRight="32dp"
+                    android:paddingLeft="32dp"
+                    android:text="از گالری..."
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:background="@drawable/bg_button_color_accent2"/>
+
+                <TextView
+                    android:id="@+id/choose_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="انتخاب عکس"
+                    android:textColor="#000"
+                    android:textSize="17sp"/>
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintTop_toBottomOf="@+id/lay_choose_pic"
+                android:layout_marginTop="12dp"/>
+            <LinearLayout
+                android:id="@+id/lay_choose_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/line1"
+                android:layout_marginTop="12dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="تومان"
+                    android:textColor="#000"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/txt_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15000"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="مبلغ:"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="8dp"/>
+
+                <TextView
+                    android:id="@+id/choose_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="سایز کاغذ را انتخاب کنید"
+                    android:textColor="#000"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="16dp"/>
+            </LinearLayout>
+            <android.support.v7.widget.CardView
+                android:id="@+id/lay_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/lay_choose_size"
+                android:layout_marginTop="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_button_color_accent2">
+
+                    <TextView
+                        android:id="@+id/txt_size30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="30 × 40"
+                        android:textColor="#000"
+                        android:textSize="24sp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"/>
+
+                    <TextView
+                        android:id="@+id/txt_size35"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="35 × 50"
+                        android:textColor="#000"
+                        android:textSize="24sp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"/>
+
+                    <TextView
+                        android:id="@+id/txt_size50"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="50 × 70"
+                        android:textColor="#fff"
+                        android:textSize="24sp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:background="@color/colorAccent"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <ImageView
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintTop_toBottomOf="@+id/lay_size"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="64dp"/>
+            <LinearLayout
+                android:id="@+id/lay_caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/line2"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:gravity="right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="عکس و سایز دلخواهتون رو انتخاب کنید"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="حداکثر تا 6 روز کاری دیگه عکس میاد جلوی در خونتون"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="طراحی سیاه قلم نی نی گراف"
+                    android:textColor="#000"
+                    android:textSize="24sp"/>
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <ImageView
+            android:layout_width="108dp"
+            android:layout_height="108dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:paddingLeft="-18dp"
+            android:src="@drawable/logo2"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+import ir.ninigraph.ninigraph.Model.HomePage;
 import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Util.GlideApp;
@@ -17,9 +18,9 @@ import ir.ninigraph.ninigraph.Util.GlideApp;
 public class RecyclerNewestAdapter extends RecyclerView.Adapter<RecyclerNewestAdapter.RecyclerViewHolder>{
 
     Context context;
-    List<Picture> pictureList;
+    List<HomePage.NewsModel> pictureList;
 
-    public RecyclerNewestAdapter(Context context, List<Picture> pictureList) {
+    public RecyclerNewestAdapter(Context context, List<HomePage.NewsModel> pictureList) {
         this.context = context;
         this.pictureList = pictureList;
     }

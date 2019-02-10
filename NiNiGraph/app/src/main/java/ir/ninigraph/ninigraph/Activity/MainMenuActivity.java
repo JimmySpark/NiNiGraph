@@ -1,13 +1,16 @@
 package ir.ninigraph.ninigraph.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -23,9 +26,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -34,6 +40,7 @@ import ir.ninigraph.ninigraph.Adapter.RecyclerNewestAdapter;
 import ir.ninigraph.ninigraph.Adapter.RecyclerOccasionalCategoryAdapter;
 import ir.ninigraph.ninigraph.Adapter.SliderAdapter;
 import ir.ninigraph.ninigraph.Model.Ads;
+import ir.ninigraph.ninigraph.Model.HomePage;
 import ir.ninigraph.ninigraph.Model.OccasionalCategory;
 import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.R;
@@ -45,24 +52,30 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static ir.ninigraph.ninigraph.Activity.MainActivity.retroInterface;
+
 public class MainMenuActivity extends AppCompatActivity {
 
     //Values
     Context context = this;
     TextView txt_logo_title;
     SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     public static TextView txt_occasional_title;
     public static ImageView img_back_category;
     public static RecyclerView recycler_occasional, recycler_occasional_category;
-    LinearLayout lay_menu;
-    RelativeLayout item_new_order, item_follow_order, item_edit_info, item_support, lay_dark_bg;
+    LinearLayout lay_menu, lay_newest, lay_occasional;
+    RelativeLayout item_new_order, item_follow_order, item_edit_info, item_support, item_logout, lay_dark_bg;
     boolean isMenuVisible = false;
     RecyclerView recycler_ads, recycler_newest;
     ss.com.bannerslider.Slider slider;
     SwipeRefreshLayout refreshLayout;
     ConstraintLayout lay_parent, lay_no_con;
     Button btn_try_again;
+    ProgressBar progress_bar;
     boolean isConnected, doubleBackToExitPressedOnce;
+
+    HomePage homePageModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +84,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         //Values
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        editor = preferences.edit();
 
         //Views
         txt_logo_title = findViewById(R.id.txt_logo_title);
@@ -80,6 +94,7 @@ public class MainMenuActivity extends AppCompatActivity {
         item_follow_order = findViewById(R.id.item_follow_order);
         item_edit_info = findViewById(R.id.item_edit_info);
         item_support = findViewById(R.id.item_support);
+        item_logout = findViewById(R.id.item_logout);
         slider = findViewById(R.id.slider);
         recycler_ads = findViewById(R.id.recycler_ads);
         recycler_newest = findViewById(R.id.recycler_newest);
@@ -91,6 +106,9 @@ public class MainMenuActivity extends AppCompatActivity {
         lay_no_con = findViewById(R.id.lay_no_con);
         btn_try_again = findViewById(R.id.btn_try_again);
         img_back_category = findViewById(R.id.img_back_category);
+        progress_bar = findViewById(R.id.progress_bar);
+        lay_newest = findViewById(R.id.lay_newest);
+        lay_occasional = findViewById(R.id.lay_occasional);
 
 
         //Change Font
@@ -139,6 +157,18 @@ public class MainMenuActivity extends AppCompatActivity {
                         public void onClick(View v) {
 
                             hideMenuItems();
+                            showSupportDialog(context);
+                        }
+                    });
+
+                    item_logout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            hideMenuItems();
+                            editor.putBoolean("login", false).apply();
+                            startActivity(new Intent(context, MainActivity.class));
+                            finish();
                         }
                     });
 
@@ -149,8 +179,7 @@ public class MainMenuActivity extends AppCompatActivity {
                             hideMenuItems();
                         }
                     });
-                }
-                else {
+                } else {
 
                     hideMenuItems();
                 }
@@ -189,13 +218,14 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     //Classes
-    private void showMenuItems(){
+    private void showMenuItems() {
 
         isMenuVisible = true;
         item_new_order.setVisibility(View.VISIBLE);
         item_follow_order.setVisibility(View.VISIBLE);
         item_edit_info.setVisibility(View.VISIBLE);
         item_support.setVisibility(View.VISIBLE);
+        item_logout.setVisibility(View.VISIBLE);
         lay_dark_bg.setVisibility(View.VISIBLE);
 
         //..Start Animations
@@ -203,14 +233,17 @@ public class MainMenuActivity extends AppCompatActivity {
         item_follow_order.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_follow_order));
         item_edit_info.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_edit_info));
         item_support.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_support));
+        item_logout.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_logout));
     }
-    private void hideMenuItems(){
+
+    private void hideMenuItems() {
 
         isMenuVisible = false;
         item_new_order.setVisibility(View.GONE);
         item_follow_order.setVisibility(View.GONE);
         item_edit_info.setVisibility(View.GONE);
         item_support.setVisibility(View.GONE);
+        item_logout.setVisibility(View.GONE);
         lay_dark_bg.setVisibility(View.GONE);
 
         //..Start Animations
@@ -218,17 +251,19 @@ public class MainMenuActivity extends AppCompatActivity {
         item_follow_order.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
         item_edit_info.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
         item_support.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
+        item_logout.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
     }
-    private void showNewOrderDialog(){
+
+    private void showNewOrderDialog() {
 
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_order, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(view);
 
-        LinearLayout btn_edit = view.findViewById(R.id.btn_edit);
-        LinearLayout btn_drawing = view.findViewById(R.id.btn_drawing);
-        LinearLayout btn_print = view.findViewById(R.id.btn_print);
+        RelativeLayout btn_edit = view.findViewById(R.id.btn_edit);
+        RelativeLayout btn_drawing = view.findViewById(R.id.btn_drawing);
+        RelativeLayout btn_print = view.findViewById(R.id.btn_print);
 
         final AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dialog));
@@ -257,7 +292,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
                 if (preferences.getBoolean("isInfoEntered", false))
 
-                    Toast.makeText(context, "طراحی چهره", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(context, NewDrawingOrderActivity.class));
                 else
                     remindEnterInfo();
             }
@@ -282,136 +317,19 @@ public class MainMenuActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        width = (int)((width) * (((double) 4 / 5)));
+        width = (int) ((width) * (((double) 4 / 5)));
         dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
-    private void getSliderData(){
 
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<Picture>> call = apiService.getSliderData();
-
-        //call.request().cacheControl().noCache();
-        call.enqueue(new Callback<List<Picture>>() {
-            @Override
-            public void onResponse(Call<List<Picture>> call, Response<List<Picture>> response) {
-
-                if (response.isSuccessful()){
-                    if (response.body() != null){
-
-                        slider.setAdapter(new SliderAdapter(context, response.body()));
-                        slider.setInterval(5000);
-
-                        //response.body().clear();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Picture>> call, Throwable t) {
-                Toast.makeText(MainMenuActivity.this, "خطا در دریافت اطلاعات از سرور", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //call.cancel();
-    }
-    private void getAds(){
-
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<Ads>> call = apiService.getAds();
-
-        call.enqueue(new Callback<List<Ads>>() {
-            @Override
-            public void onResponse(Call<List<Ads>> call, Response<List<Ads>> response) {
-
-                if (response.isSuccessful() && response.body() != null){
-
-                    recycler_ads.setLayoutManager(new LinearLayoutManager(
-                            getApplicationContext(),
-                            LinearLayoutManager.HORIZONTAL,
-                            false
-                    ));
-                    recycler_ads.setAdapter(new RecyclerAdsAdapter(
-                            context,
-                            response.body()
-                    ));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Ads>> call, Throwable t) {
-
-            }
-        });
-    }
-    private void getNewest(){
-
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<Picture>> call = apiService.getNewest();
-
-        call.enqueue(new Callback<List<Picture>>() {
-            @Override
-            public void onResponse(Call<List<Picture>> call, Response<List<Picture>> response) {
-                if (response.isSuccessful()){
-                    if (response.body() != null){
-
-                        recycler_newest.setLayoutManager(new LinearLayoutManager(
-                                context,
-                                LinearLayoutManager.HORIZONTAL,
-                                false
-                        ));
-                        recycler_newest.setAdapter(new RecyclerNewestAdapter(
-                                context,
-                                response.body()
-                        ));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Picture>> call, Throwable t) {
-
-            }
-        });
-    }
-    private void getOccasionalCategory(){
-
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<OccasionalCategory>> call = apiService.getOccasionalCategory();
-
-        call.enqueue(new Callback<List<OccasionalCategory>>() {
-            @Override
-            public void onResponse(Call<List<OccasionalCategory>> call, Response<List<OccasionalCategory>> response) {
-                if (response.isSuccessful()){
-                    if (response.body() != null){
-
-                        recycler_occasional_category.setLayoutManager(new GridLayoutManager(
-                                context,
-                                2
-                        ));
-                        recycler_occasional_category.setAdapter(new RecyclerOccasionalCategoryAdapter(
-                                context,
-                                response.body()
-                        ));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<OccasionalCategory>> call, Throwable t) {
-
-            }
-        });
-    }
-    private void checkConnection(){
+    private void checkConnection() {
 
         isConnected = NetworkUtil.isConnected(context);
 
-        if (!isConnected){
+        if (!isConnected) {
 
             lay_parent.setVisibility(View.GONE);
             lay_no_con.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
 
             lay_parent.setVisibility(View.VISIBLE);
             lay_no_con.setVisibility(View.GONE);
@@ -419,13 +337,40 @@ public class MainMenuActivity extends AppCompatActivity {
             txt_occasional_title.setText("مناسبتی ها");
             recycler_occasional.setVisibility(View.GONE);
             recycler_occasional_category.setVisibility(View.VISIBLE);
-            getSliderData();
-            getAds();
-            getNewest();
-            getOccasionalCategory();
+            progress_bar.setVisibility(View.VISIBLE);
+            slider.setVisibility(View.GONE);
+            recycler_ads.setVisibility(View.GONE);
+            lay_newest.setVisibility(View.GONE);
+            lay_occasional.setVisibility(View.GONE);
+
+            getHomePage(new Runnable() {
+                @Override
+                public void run() {
+                    slider.setAdapter(new SliderAdapter(context, homePageModel.slider));
+                    slider.setInterval(5000);
+
+                    recycler_newest.setLayoutManager(new LinearLayoutManager(
+                            context, LinearLayoutManager.HORIZONTAL, false));
+                    recycler_occasional_category.setLayoutManager(new GridLayoutManager(context, 2));
+
+                    recycler_ads.setLayoutManager(new LinearLayoutManager(
+                            getApplicationContext(),
+                            LinearLayoutManager.HORIZONTAL,
+                            false
+                    ));
+
+                    recycler_ads.setAdapter(new RecyclerAdsAdapter(context, homePageModel.ads));
+
+                    recycler_newest.setAdapter(new RecyclerNewestAdapter(context, homePageModel.news));
+
+                    recycler_occasional_category.setAdapter(new RecyclerOccasionalCategoryAdapter(
+                            context, homePageModel.occasional));
+                }
+            });
         }
     }
-    private void remindEnterInfo(){
+
+    private void remindEnterInfo() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
@@ -448,7 +393,77 @@ public class MainMenuActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        width = (int)((width) * (((double) 4 / 5)));
+        width = (int) ((width) * (((double) 4 / 5)));
+        dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+
+    public void getHomePage(final Runnable runnable) {
+        JSONObject input = new JSONObject();
+        try {
+            input.put("mode", "HOME_PAGE");
+        } catch (Exception ignored) {
+        }
+
+        retroInterface.getHomePage(input.toString()).enqueue(new Callback<HomePage>() {
+            @Override
+            public void onResponse(@NonNull Call<HomePage> call, @NonNull Response<HomePage> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+
+                        progress_bar.setVisibility(View.GONE);
+                        slider.setVisibility(View.VISIBLE);
+                        recycler_ads.setVisibility(View.VISIBLE);
+                        lay_newest.setVisibility(View.VISIBLE);
+                        lay_occasional.setVisibility(View.VISIBLE);
+
+                        homePageModel = response.body();
+                        runnable.run();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<HomePage> call, @NonNull Throwable t) {
+                Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void showSupportDialog(Context context) {
+
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_support, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setView(view);
+
+        TextView title = view.findViewById(R.id.title);
+        RelativeLayout btn_call = view.findViewById(R.id.btn_call);
+
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dialog_support));
+        Typeface font = Typeface.createFromAsset(getAssets(), "font/Vazir-Bold-FD-WOL.ttf");
+        title.setTypeface(font);
+        dialog.show();
+
+        btn_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+                Intent dial = new Intent(Intent.ACTION_DIAL);
+                dial.setData(Uri.parse("tel:09397996639"));
+                startActivity(dial);
+            }
+        });
+
+        //Change Layout
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        width = (int) ((width) * (((double) 4 / 5)));
         dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
@@ -457,6 +472,7 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     public void onBackPressed() {
 
@@ -468,8 +484,7 @@ public class MainMenuActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             startActivity(intent);
-        }
-        else {
+        } else {
             doubleBackToExitPressedOnce = true;
             Toast.makeText(this, "برای خروج دوباره لمس کنید.", Toast.LENGTH_SHORT).show();
             new Handler().postDelayed(new Runnable() {

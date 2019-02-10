@@ -3,7 +3,10 @@ package ir.ninigraph.ninigraph.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import ir.ninigraph.ninigraph.Model.SMS;
 import ir.ninigraph.ninigraph.Model.Verification;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Server.ApiClient;
@@ -37,13 +41,15 @@ public class CodeVerificationActivity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     EditText edt_txt_code;
-    Button btn_verify;
-    TextView txt_btn_edit_phone_number;
+    Button btn_verify, btn_try_again;
+    LinearLayout btn_send_code_again;
+    TextView txt_btn_edit_phone_number, txt_second, txt_send_code_again;
     ConstraintLayout lay_parent, lay_no_con;
-    Button btn_try_again;
     AlertDialog dialog;
     boolean isConnected;
     String phone;
+    int s = 60;
+    CountDownTimer second;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,9 @@ public class CodeVerificationActivity extends AppCompatActivity {
         lay_no_con = findViewById(R.id.lay_no_con);
         btn_try_again = findViewById(R.id.btn_try_again);
         edt_txt_code = findViewById(R.id.edt_txt_code);
+        btn_send_code_again = findViewById(R.id.btn_send_code_again);
+        txt_second = findViewById(R.id.txt_second);
+        txt_send_code_again = findViewById(R.id.txt_send_code_again);
 
 
         //Check Connection
@@ -91,27 +100,60 @@ public class CodeVerificationActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
             }
         });
     }
 
-    //Classes
-    private void checkConnection(){
+    //Method
+    private void checkConnection() {
 
         isConnected = NetworkUtil.isConnected(context);
 
-        if (!isConnected){
+        if (!isConnected) {
 
             lay_parent.setVisibility(View.GONE);
             lay_no_con.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
 
             lay_parent.setVisibility(View.VISIBLE);
             lay_no_con.setVisibility(View.GONE);
+
+
+            second = new CountDownTimer(60000, 1000) {
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                    if (s != 0) {
+                        s--;
+                        txt_second.setText("(" + s + ")");
+                    } else {
+
+                        txt_second.setTextColor(Color.parseColor("#000000"));
+                        txt_send_code_again.setTextColor(Color.parseColor("#000000"));
+                        btn_send_code_again.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                v.setClickable(false);
+                                second.cancel();
+                                showLoadingDialog();
+                                sendSms(phone);
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                }
+            };
+            second.start();
         }
     }
-    private void showLoadingDialog(){
+
+    private void showLoadingDialog() {
 
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
 
@@ -128,10 +170,11 @@ public class CodeVerificationActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        width = (int)((width) * (0.6 / 3));
+        width = (int) ((width) * (0.6 / 3));
         dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
-    private void checkCode(String phone, String code){
+
+    private void checkCode(String phone, String code) {
 
         ApiService apiService = ApiClient.getApi().create(ApiService.class);
         Call<List<Verification>> call = apiService.checkCode(phone, code);
@@ -139,22 +182,18 @@ public class CodeVerificationActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Verification>>() {
             @Override
             public void onResponse(Call<List<Verification>> call, Response<List<Verification>> response) {
-                if (response.isSuccessful()){
-                    if (response.body() != null){
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
 
                         dialog.dismiss();
 
-                        if (response.body().get(0).isResult()){
+                        if (response.body().get(0).isResult()) {
 
                             editor.putInt("id", response.body().get(0).getId()).apply();
                             editor.putBoolean("login", true).apply();
-                            if (preferences.getBoolean("isInfoEntered", false))
-
-                                startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
-                            else
-                                startActivity(new Intent(getApplicationContext(), PersonalInfoActivity.class));
-                        }
-                        else
+                            startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+                            finish();
+                        } else
                             Toast.makeText(context, "کد وارد شده صحیح نمی باشد", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -169,6 +208,47 @@ public class CodeVerificationActivity extends AppCompatActivity {
         });
     }
 
+    private void sendSms(final String phone) {
+
+        //Check If Phone Start With 0
+        String phone2 = phone;
+        if (!phone.startsWith("0"))
+            phone2 = "0" + phone;
+        final String finalPhone = phone2;
+
+        ApiService apiService = ApiClient.getApi().create(ApiService.class);
+        Call<List<SMS>> call = apiService.sendSMS(finalPhone);
+
+        call.enqueue(new Callback<List<SMS>>() {
+            @Override
+            public void onResponse(Call<List<SMS>> call, Response<List<SMS>> response) {
+                if (response.isSuccessful()) {
+
+                    dialog.dismiss();
+                    if (response.body() != null) {
+
+                        if (response.body().get(0).getStatus() == 200) {
+
+                            s = 60;
+                            edt_txt_code.getText().clear();
+                            txt_second.setTextColor(Color.parseColor("#787878"));
+                            txt_send_code_again.setTextColor(Color.parseColor("#787878"));
+                            second.start();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SMS>> call, Throwable t) {
+
+                dialog.dismiss();
+                Toast.makeText(context, "خطا در ارسال درخواست، لطفا مجددا تلاش کنید", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    //Override Method
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

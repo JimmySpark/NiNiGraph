@@ -18,6 +18,7 @@ import java.util.List;
 
 import ir.ninigraph.ninigraph.Activity.MainMenuActivity;
 import ir.ninigraph.ninigraph.Model.Ads;
+import ir.ninigraph.ninigraph.Model.HomePage;
 import ir.ninigraph.ninigraph.Model.OccasionalCategory;
 import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.R;
@@ -32,9 +33,9 @@ import retrofit2.Response;
 public class RecyclerOccasionalCategoryAdapter extends RecyclerView.Adapter<RecyclerOccasionalCategoryAdapter.RecyclerViewHolder>{
 
     Context context;
-    List<OccasionalCategory> occasionalCategoryList;
+    List<HomePage.CccasionalModel> occasionalCategoryList;
 
-    public RecyclerOccasionalCategoryAdapter(Context context, List<OccasionalCategory> occasionalCategoryList) {
+    public RecyclerOccasionalCategoryAdapter(Context context, List<HomePage.CccasionalModel> occasionalCategoryList) {
         this.context = context;
         this.occasionalCategoryList = occasionalCategoryList;
     }
@@ -49,7 +50,7 @@ public class RecyclerOccasionalCategoryAdapter extends RecyclerView.Adapter<Recy
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, int position) {
 
-        final OccasionalCategory occasionalCategory = occasionalCategoryList.get(position);
+        final HomePage.CccasionalModel occasionalCategory = occasionalCategoryList.get(position);
 
         GlideApp
                 .with(context)

@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.ninigraph.ninigraph.Activity.PaymentUnsuccessfulActivity">
+    tools:context="ir.ninigraph.ninigraph.Activity.PaymentUnsuccessfulActivity"
+    android:background="@mipmap/bg_primary">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/lay_parent"

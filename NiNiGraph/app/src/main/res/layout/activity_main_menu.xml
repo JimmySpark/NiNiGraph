@@ -37,14 +37,14 @@
                         app:slider_selectedSlideIndicator="@drawable/img_selected_indicator"
                         app:slider_loopSlides="true"
                         app:slider_emptyView="@layout/layout_slider_empty_view"
-                        android:background="#fff"/>
-
+                        android:background="#fff"
+                        android:visibility="gone"/>
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_ads"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/slider"/>
-
+                        app:layout_constraintTop_toBottomOf="@id/slider"
+                        android:visibility="gone"/>
                     <LinearLayout
                         android:id="@+id/lay_newest"
                         android:layout_width="match_parent"
@@ -52,7 +52,8 @@
                         android:orientation="vertical"
                         app:layout_constraintTop_toBottomOf="@+id/recycler_ads"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -69,7 +70,6 @@
                             android:layout_height="wrap_content" />
 
                     </LinearLayout>
-
                     <LinearLayout
                         android:id="@+id/lay_occasional"
                         android:layout_width="match_parent"
@@ -77,7 +77,8 @@
                         android:orientation="vertical"
                         app:layout_constraintTop_toBottomOf="@+id/lay_newest"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -115,6 +116,14 @@
                             android:visibility="gone"/>
 
                     </LinearLayout>
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="250dp"
+                        android:visibility="visible"/>
 
                 </android.support.constraint.ConstraintLayout>
             </ScrollView>
@@ -140,7 +149,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
                 app:fabSize="mini"
                 android:theme="@style/fabTheme1"
                 app:rippleColor="#ff9f39"
@@ -178,7 +188,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
                 app:fabSize="mini"
                 android:theme="@style/fabTheme2"
                 app:rippleColor="#fff34a"
@@ -216,7 +227,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
                 app:fabSize="mini"
                 android:theme="@style/fabTheme3"
                 app:rippleColor="#49ffa7"
@@ -254,7 +266,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_margin="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
                 app:fabSize="mini"
                 android:theme="@style/fabTheme4"
                 app:rippleColor="#53ddff"
@@ -273,6 +286,45 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/support"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="16dp"/>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/item_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_support"
+            android:visibility="gone">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                app:fabSize="mini"
+                android:theme="@style/fabTheme5"
+                app:rippleColor="#9253ff"
+                android:src="@drawable/icon_logout"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="#9253ff"
+                android:layout_toLeftOf="@+id/fab_logout"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/logout"
                     android:textColor="#000"
                     android:textSize="16sp"
                     android:layout_marginRight="16dp"
