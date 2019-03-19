@@ -2,11 +2,7 @@ package ir.ninigraph.ninigraph.Model;
 
 public class Prices {
 
-    long drawing, edit, print, post;
-
-    public long getDrawing() {
-        return drawing;
-    }
+    long edit, print, post;
 
     public long getEdit() {
         return edit;

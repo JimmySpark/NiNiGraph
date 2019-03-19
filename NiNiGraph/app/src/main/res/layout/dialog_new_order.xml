@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -18,69 +17,91 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:text="ویرایش عکس کودک"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                android:layout_centerInParent="true"/>
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/icon_edit_image"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/icon_edit_image" />
         </RelativeLayout>
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#999"
+            android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"/>
+            android:background="#999" />
+
         <RelativeLayout
             android:id="@+id/btn_drawing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp">
 
+            <ImageView
+                android:id="@+id/lock1"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/icon_lock"
+                android:layout_alignParentLeft="true"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="طراحی چهره"
+                android:layout_centerInParent="true"
+                android:text="طراحی چهره (سیاه قلم)"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                android:layout_centerInParent="true"/>
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/icon_drawing"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/icon_drawing" />
         </RelativeLayout>
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#999"
+            android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"/>
+            android:background="#999"/>
+
         <RelativeLayout
             android:id="@+id/btn_print"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="17dp"
             android:layout_margin="8dp">
+
+            <ImageView
+                android:id="@+id/lock"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/icon_lock" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:text="چاپ"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                android:layout_centerInParent="true"/>
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/icon_print"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentRight="true"
+                android:src="@drawable/icon_print" />
         </RelativeLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

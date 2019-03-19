@@ -11,16 +11,15 @@ import android.widget.ImageView;
 import java.util.List;
 
 import ir.ninigraph.ninigraph.Model.HomePage;
-import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Util.GlideApp;
 
 public class RecyclerNewestAdapter extends RecyclerView.Adapter<RecyclerNewestAdapter.RecyclerViewHolder>{
 
     Context context;
-    List<HomePage.NewsModel> pictureList;
+    List<HomePage.NewestModel> pictureList;
 
-    public RecyclerNewestAdapter(Context context, List<HomePage.NewsModel> pictureList) {
+    public RecyclerNewestAdapter(Context context, List<HomePage.NewestModel> pictureList) {
         this.context = context;
         this.pictureList = pictureList;
     }

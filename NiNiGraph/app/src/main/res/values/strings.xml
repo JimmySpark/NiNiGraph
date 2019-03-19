@@ -27,10 +27,9 @@
     <string name="hint_city">شهر</string>
     <string name="hint_address">آدرس پستی</string>
     <string name="hint_postal_code">کد پستی 10 رقمی</string>
-    <string name="personal_info_caption1">•	اطلاعات این بخش قابل ویرایش میباشد</string>
-    <string name="personal_info_caption2">•	آدرس و کد پستی در مواقعی که شما درخواست چاپ عکس دارید مورد نیاز است تا از طریق پست براتون ارسال نمائیم</string>
-    <string name="save_info">ذخیره اطلاعات</string>
-    <string name="skip">بعدا وارد میکنم</string>
+    <string name="personal_info_caption1">•	آدرس و کد پستی مورد نیاز است تا سفارش شما را از طریق پست براتون ارسال کنیم</string>
+    <string name="personal_info_caption2">•	لطفا تا پایان انجام عملیات ثبت سفارش از برنامه خارج نشوید</string>
+    <string name="save_info">تایید و پرداخت</string>
 
     <!--Main Menu Activity-->
     <string name="brand_name">نی نی گراف</string>
@@ -41,6 +40,12 @@
     <string name="support">پشتیبانی و تماس با ما</string>
     <string name="logout">خروج از حساب</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Payment Activity-->
+    <string name="payment_caption1">•	زمان تحویل عکس های طراحی شده حداکثر 3 روز بعد از پرداخت می باشد</string>
+    <string name="payment_caption2">•	زمان تحویل عکس های چاپ شده حداکثر 6 روز بعد از پرداخت می باشد</string>
+
+    <!--New Print Order Activity-->
+    <string name="text_print_caption_1">بعد از کلیک روی دکمه \"انتخاب عکس\" باید تصویری که میخواهید چاپ کنید را از گالری انتخاب نمایید.</string>
+    <string name="text_print_caption_2">برای هر عکس می‌توانید \"سایز چاپ\"، \"جنس کاغذ\" و یا \"شاسی بودن\" آن را انتخاب نمایید.</string>
+    <string name="text_print_caption_3">عکس‌ها حداکثر تا 3 روز کاری به دستتون میرسه.</string>
 </resources>

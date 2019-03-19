@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/bg_primary"
     tools:context="ir.ninigraph.ninigraph.Activity.NewEditOrderActivity">
 
     <android.support.constraint.ConstraintLayout
@@ -12,73 +12,69 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
+        <RelativeLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="0dp"
-            app:cardElevation="8dp">
+            android:background="@color/colorAccent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:src="@drawable/icon_back" />
 
-                <ImageView
-                    android:id="@+id/img_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/icon_back"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="انتخاب تم"
+                android:textColor="#fff"
+                android:textSize="24sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="انتخاب تم"
-                    android:textSize="24sp"
-                    android:textColor="#fff"/>
-
-                <TextView
-                    android:id="@+id/txt_choose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="8dp"
-                    android:text="انتخاب کردم"
-                    android:textColor="#fff"
-                    android:textSize="14sp"
-                    android:visibility="gone"/>
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_theme_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="?attr/actionBarSize"/>
+            android:layout_marginTop="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:visibility="gone"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_btn_pay"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:textColor="#e4f5e0"
+            android:textSize="22sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
     <include
         android:id="@+id/lay_no_con"
         layout="@layout/layout_no_connection"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </android.support.constraint.ConstraintLayout>

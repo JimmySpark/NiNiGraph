@@ -7,6 +7,7 @@ import ir.ninigraph.ninigraph.Model.HomePage;
 import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Util.GlideApp;
+import ir.ninigraph.ninigraph.Util.GlideOptions;
 import ss.com.bannerslider.viewholder.ImageSlideViewHolder;
 
 
@@ -32,7 +33,6 @@ public class SliderAdapter extends ss.com.bannerslider.adapters.SliderAdapter{
                 .with(context)
                 .load(pictureList.get(position).getUrl())
                 .placeholder(R.drawable.img_logo2)
-                .skipMemoryCache(true)
                 .into(holder.imageView);
     }
 }

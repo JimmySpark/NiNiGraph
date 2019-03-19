@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
@@ -26,13 +25,13 @@ import java.util.List;
 import ir.ninigraph.ninigraph.Model.SMS;
 import ir.ninigraph.ninigraph.Model.Verification;
 import ir.ninigraph.ninigraph.R;
-import ir.ninigraph.ninigraph.Server.ApiClient;
-import ir.ninigraph.ninigraph.Server.ApiService;
 import ir.ninigraph.ninigraph.Util.NetworkUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static ir.ninigraph.ninigraph.Activity.MainActivity.apiService;
 
 public class CodeVerificationActivity extends AppCompatActivity {
 
@@ -41,9 +40,9 @@ public class CodeVerificationActivity extends AppCompatActivity {
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     EditText edt_txt_code;
-    Button btn_verify, btn_try_again;
+    Button btn_try_again;
     LinearLayout btn_send_code_again;
-    TextView txt_btn_edit_phone_number, txt_second, txt_send_code_again;
+    TextView txt_btn_edit_phone_number, txt_second, txt_send_code_again, btn_verify;
     ConstraintLayout lay_parent, lay_no_con;
     AlertDialog dialog;
     boolean isConnected;
@@ -125,28 +124,24 @@ public class CodeVerificationActivity extends AppCompatActivity {
                 @Override
                 public void onTick(long millisUntilFinished) {
 
-                    if (s != 0) {
-                        s--;
-                        txt_second.setText("(" + s + ")");
-                    } else {
-
-                        txt_second.setTextColor(Color.parseColor("#000000"));
-                        txt_send_code_again.setTextColor(Color.parseColor("#000000"));
-                        btn_send_code_again.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                v.setClickable(false);
-                                second.cancel();
-                                showLoadingDialog();
-                                sendSms(phone);
-                            }
-                        });
-                    }
+                    txt_second.setText("(" + (millisUntilFinished / 1000) + ")");
                 }
 
                 @Override
                 public void onFinish() {
+                    txt_second.setText("(0)");
+                    txt_second.setTextColor(Color.parseColor("#000000"));
+                    txt_send_code_again.setTextColor(Color.parseColor("#000000"));
+                    btn_send_code_again.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            v.setClickable(false);
+                            //second.cancel();
+                            showLoadingDialog();
+                            sendSms(phone);
+                        }
+                    });
                 }
             };
             second.start();
@@ -176,10 +171,7 @@ public class CodeVerificationActivity extends AppCompatActivity {
 
     private void checkCode(String phone, String code) {
 
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<Verification>> call = apiService.checkCode(phone, code);
-
-        call.enqueue(new Callback<List<Verification>>() {
+        apiService.checkCode(phone, code).enqueue(new Callback<List<Verification>>() {
             @Override
             public void onResponse(Call<List<Verification>> call, Response<List<Verification>> response) {
                 if (response.isSuccessful()) {
@@ -216,10 +208,7 @@ public class CodeVerificationActivity extends AppCompatActivity {
             phone2 = "0" + phone;
         final String finalPhone = phone2;
 
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<SMS>> call = apiService.sendSMS(finalPhone);
-
-        call.enqueue(new Callback<List<SMS>>() {
+        apiService.sendSMS(finalPhone).enqueue(new Callback<List<SMS>>() {
             @Override
             public void onResponse(Call<List<SMS>> call, Response<List<SMS>> response) {
                 if (response.isSuccessful()) {

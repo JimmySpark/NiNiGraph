@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_primary"
+    tools:context="ir.ninigraph.ninigraph.Activity.EditPictureActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/lay_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:src="@drawable/icon_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="ویرایش عکس"
+                android:textColor="#fff"
+                android:textSize="24sp" />
+
+        </RelativeLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/lay_contents"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:background="#a0000000">
+
+                <com.edmodo.cropper.CropImageView xmlns:custom="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/crop_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="?attr/actionBarSize"
+                    custom:guidelines="on" />
+
+                <ImageView
+                    android:id="@+id/btn_rotate"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/icon_rotate"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <Spinner
+                        android:id="@+id/spinner_chassis"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="0.3"
+                        android:background="@drawable/bg_spinner" />
+
+                    <Spinner
+                        android:id="@+id/spinner_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="0.3"
+                        android:background="@drawable/bg_spinner" />
+
+                    <Spinner
+                        android:id="@+id/spinner_size"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="0.3"
+                        android:background="@drawable/bg_spinner" />
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/txt_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_glass_black"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+                <TextView
+                    android:id="@+id/btn_next"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/bg_button_color_blue"
+                    android:gravity="center"
+                    android:text="مرحله بعد"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/lay_no_con"
+        layout="@layout/layout_no_connection"
+        android:visibility="gone" />
+
+</android.support.constraint.ConstraintLayout>

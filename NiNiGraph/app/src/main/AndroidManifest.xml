@@ -12,6 +12,8 @@
     <uses-permission android:name="ir.ninigraph.ninigraph.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- Optional permissions -->
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
@@ -20,8 +22,10 @@
     <application
         android:name=".App.AppController"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
@@ -66,9 +70,9 @@
         <activity
             android:name=".Activity.CodeVerificationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".Activity.PersonalInfoActivity"
+            android:name=".Activity.CustomerInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
@@ -99,7 +103,17 @@
         <activity android:name=".Activity.PaymentSuccessfulActivity" />
         <activity android:name=".Activity.PaymentUnsuccessfulActivity" />
         <activity android:name=".Activity.UploadEditPicActivity" />
-        <activity android:name=".Activity.NewDrawingOrderActivity"></activity>
+        <activity android:name=".Activity.NewDrawingOrderActivity" />
+        <activity android:name=".Activity.DesignerLoginActivity" />
+        <activity android:name=".Activity.PaymentDrawingActivity" />
+        <activity android:name=".Activity.NewPrintOrderActivity" />
+        <activity android:name=".Activity.ChoosePictureActivity" />
+        <activity android:name=".Activity.EditPictureActivity" />
+        <activity android:name=".Activity.PaymentPrintActivity" />
+        <activity android:name=".Activity.ChooseAndUploadThemePicture" />
+        <activity android:name=".Activity.DesignerPanelActivity" />
+        <activity android:name=".Activity.OrderDrawingActivity" />
+        <activity android:name=".Activity.OrderEditActivity"></activity>
     </application>
 
 </manifest>

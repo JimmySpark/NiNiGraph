@@ -23,7 +23,7 @@
                 android:layout_marginTop="12dp"
                 android:text="پشتیبانی نی نی گراف"
                 android:textColor="#fff"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
 
         <android.support.constraint.ConstraintLayout
@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="برای ارتباط با پشتیبانی، با شماره تلفنی 09397996639 تماس بگیرید"
                 android:gravity="center"
-                android:textSize="18sp"/>
+                android:textSize="14sp"/>
 
             <RelativeLayout
                 android:id="@+id/btn_call"
@@ -61,12 +61,12 @@
                     android:layout_height="wrap_content"
                     android:text="تماس تلفنی"
                     android:textColor="@color/colorAccent"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:layout_centerVertical="true"/>
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_margin="8dp"
                     android:layout_toRightOf="@+id/call"
                     android:src="@drawable/icon_support2"

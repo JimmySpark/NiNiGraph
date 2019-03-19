@@ -24,8 +24,4 @@
         <item name="colorAccent">#00ccff</item>
     </style>
 
-    <style name="fabTheme5">
-        <item name="colorAccent">#8000ff</item>
-    </style>
-
 </resources>

@@ -1,8 +1,6 @@
 package ir.ninigraph.ninigraph.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,25 +15,23 @@ import android.widget.TextView;
 import java.util.List;
 
 import ir.ninigraph.ninigraph.Activity.MainMenuActivity;
-import ir.ninigraph.ninigraph.Model.Ads;
 import ir.ninigraph.ninigraph.Model.HomePage;
-import ir.ninigraph.ninigraph.Model.OccasionalCategory;
 import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.R;
-import ir.ninigraph.ninigraph.Server.ApiClient;
-import ir.ninigraph.ninigraph.Server.ApiService;
 import ir.ninigraph.ninigraph.Util.GlideApp;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static ir.ninigraph.ninigraph.Activity.MainActivity.apiService;
+
 
 public class RecyclerOccasionalCategoryAdapter extends RecyclerView.Adapter<RecyclerOccasionalCategoryAdapter.RecyclerViewHolder>{
 
     Context context;
-    List<HomePage.CccasionalModel> occasionalCategoryList;
+    List<HomePage.OccasionalModel> occasionalCategoryList;
 
-    public RecyclerOccasionalCategoryAdapter(Context context, List<HomePage.CccasionalModel> occasionalCategoryList) {
+    public RecyclerOccasionalCategoryAdapter(Context context, List<HomePage.OccasionalModel> occasionalCategoryList) {
         this.context = context;
         this.occasionalCategoryList = occasionalCategoryList;
     }
@@ -50,7 +46,7 @@ public class RecyclerOccasionalCategoryAdapter extends RecyclerView.Adapter<Recy
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewHolder holder, int position) {
 
-        final HomePage.CccasionalModel occasionalCategory = occasionalCategoryList.get(position);
+        final HomePage.OccasionalModel occasionalCategory = occasionalCategoryList.get(position);
 
         GlideApp
                 .with(context)
@@ -103,10 +99,7 @@ public class RecyclerOccasionalCategoryAdapter extends RecyclerView.Adapter<Recy
         progressBar.setVisibility(View.VISIBLE);
         txt_title.setVisibility(View.GONE);
 
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<Picture>> call = apiService.getOccasional(id);
-
-        call.enqueue(new Callback<List<Picture>>() {
+        apiService.getOccasional(id).enqueue(new Callback<List<Picture>>() {
             @Override
             public void onResponse(Call<List<Picture>> call, Response<List<Picture>> response) {
                 if (response.isSuccessful()){
@@ -115,31 +108,31 @@ public class RecyclerOccasionalCategoryAdapter extends RecyclerView.Adapter<Recy
                         progressBar.setVisibility(View.GONE);
                         txt_title.setVisibility(View.VISIBLE);
 
-                        MainMenuActivity.recycler_occasional.setLayoutManager(new LinearLayoutManager(
+                        MainMenuActivity.recyclerOccasional.setLayoutManager(new LinearLayoutManager(
                                 context,
                                 LinearLayoutManager.HORIZONTAL,
                                 false
                         ));
-                        MainMenuActivity.recycler_occasional.setAdapter(new RecyclerOccasionalAdapter(
+                        MainMenuActivity.recyclerOccasional.setAdapter(new RecyclerOccasionalAdapter(
                                 context,
                                 response.body()
                         ));
 
-                        MainMenuActivity.recycler_occasional_category.setVisibility(View.GONE);
-                        MainMenuActivity.recycler_occasional.setVisibility(View.VISIBLE);
-                        MainMenuActivity.txt_occasional_title.setText(
-                                MainMenuActivity.txt_occasional_title.getText() + " > " + title
+                        MainMenuActivity.recyclerOccasionalCategory.setVisibility(View.GONE);
+                        MainMenuActivity.recyclerOccasional.setVisibility(View.VISIBLE);
+                        MainMenuActivity.txtOccasionalTitle.setText(
+                                MainMenuActivity.txtOccasionalTitle.getText() + " > " + title
                         );
-                        MainMenuActivity.img_back_category.setVisibility(View.VISIBLE);
+                        MainMenuActivity.imgBackCategory.setVisibility(View.VISIBLE);
 
-                        MainMenuActivity.img_back_category.setOnClickListener(new View.OnClickListener() {
+                        MainMenuActivity.imgBackCategory.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                MainMenuActivity.recycler_occasional_category.setVisibility(View.VISIBLE);
-                                MainMenuActivity.recycler_occasional.setVisibility(View.GONE);
-                                MainMenuActivity.txt_occasional_title.setText("مناسبتی ها");
-                                MainMenuActivity.img_back_category.setVisibility(View.GONE);
+                                MainMenuActivity.recyclerOccasionalCategory.setVisibility(View.VISIBLE);
+                                MainMenuActivity.recyclerOccasional.setVisibility(View.GONE);
+                                MainMenuActivity.txtOccasionalTitle.setText("مناسبتی ها");
+                                MainMenuActivity.imgBackCategory.setVisibility(View.GONE);
                             }
                         });
                     }

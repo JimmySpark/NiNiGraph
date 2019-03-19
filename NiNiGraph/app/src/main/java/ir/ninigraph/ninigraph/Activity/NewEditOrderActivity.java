@@ -2,6 +2,8 @@ package ir.ninigraph.ninigraph.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,18 +20,20 @@ import java.util.List;
 import ir.ninigraph.ninigraph.Adapter.RecyclerThemeCategoryAdapter;
 import ir.ninigraph.ninigraph.Model.ThemeCategory;
 import ir.ninigraph.ninigraph.R;
-import ir.ninigraph.ninigraph.Server.ApiClient;
-import ir.ninigraph.ninigraph.Server.ApiService;
 import ir.ninigraph.ninigraph.Util.NetworkUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static ir.ninigraph.ninigraph.Activity.MainActivity.apiService;
+
 public class NewEditOrderActivity extends AppCompatActivity {
 
     //Values
     Context context = this;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     ConstraintLayout lay_parent, lay_no_con;
     Button btn_try_again;
     RecyclerView recycler_theme_category;
@@ -42,6 +46,11 @@ public class NewEditOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_edit_order);
+
+        //Values
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        editor = preferences.edit();
+        editor.remove("c").apply();
 
         //Views
         recycler_theme_category = findViewById(R.id.recycler_theme_category);
@@ -74,17 +83,27 @@ public class NewEditOrderActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        startActivity(new Intent(context, MainMenuActivity.class));
+    }
+
     //Classes
-    private void checkConnection(){
+    private void checkConnection() {
 
         isConnected = NetworkUtil.isConnected(context);
 
-        if (!isConnected){
+        if (!isConnected) {
 
             lay_parent.setVisibility(View.GONE);
             lay_no_con.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
 
             lay_parent.setVisibility(View.VISIBLE);
             lay_no_con.setVisibility(View.GONE);
@@ -93,18 +112,16 @@ public class NewEditOrderActivity extends AppCompatActivity {
             getThemeCategory();
         }
     }
-    private void getThemeCategory(){
+
+    private void getThemeCategory() {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<ThemeCategory>> call = apiService.getThemeCategory();
-
-        call.enqueue(new Callback<List<ThemeCategory>>() {
+        apiService.getThemeCategory().enqueue(new Callback<List<ThemeCategory>>() {
             @Override
             public void onResponse(Call<List<ThemeCategory>> call, Response<List<ThemeCategory>> response) {
-                if (response.isSuccessful()){
-                    if (response.body() != null){
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
 
                         progressBar.setVisibility(View.GONE);
                         recycler_theme_category.setLayoutManager(new LinearLayoutManager(context));
@@ -121,16 +138,5 @@ public class NewEditOrderActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    //Override Methods
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-    @Override
-    public void onBackPressed() {
-
-        startActivity(new Intent(context, MainMenuActivity.class));
     }
 }

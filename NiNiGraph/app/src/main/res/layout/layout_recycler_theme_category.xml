@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardBackgroundColor="@color/colorOrange"
-        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="#f2cff0"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
         app:cardCornerRadius="8dp"
         app:contentPadding="8dp">
 
@@ -27,8 +28,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
-                android:textColor="#fff"
-                android:textSize="24sp"/>
+                android:textColor="#5e3166"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/txt_selected_count"
@@ -38,12 +39,12 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:textColor="#fff"
-                android:textSize="24sp"/>
+                android:textSize="18sp"/>
 
             <ImageView
                 android:id="@+id/img_icon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:src="@drawable/icon_closed_category"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"/>
@@ -62,6 +63,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/card_category"
+        android:background="#fff"
+        android:paddingTop="8dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginLeft="6dp"
         android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>

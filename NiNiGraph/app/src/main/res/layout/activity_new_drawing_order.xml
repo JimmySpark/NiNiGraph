@@ -4,194 +4,324 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.ninigraph.ninigraph.Activity.NewDrawingOrderActivity"
-    android:background="@mipmap/bg_primary">
+    android:background="@mipmap/bg_primary"
+    tools:context="ir.ninigraph.ninigraph.Activity.NewDrawingOrderActivity">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/lay_first_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_card_new_drawing_order"
-        android:layout_marginBottom="108dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:elevation="8dp">
+        android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="18dp">
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <LinearLayout
-                android:id="@+id/lay_choose_pic"
+                android:id="@+id/lay_parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:paddingRight="32dp"
-                    android:paddingLeft="32dp"
-                    android:text="از گالری..."
-                    android:textColor="#000"
-                    android:textSize="18sp"
-                    android:background="@drawable/bg_button_color_accent2"/>
-
-                <TextView
-                    android:id="@+id/choose_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="انتخاب عکس"
-                    android:textColor="#000"
-                    android:textSize="17sp"/>
-            </LinearLayout>
-            <ImageView
-                android:id="@+id/line1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent"
-                app:layout_constraintTop_toBottomOf="@+id/lay_choose_pic"
-                android:layout_marginTop="12dp"/>
-            <LinearLayout
-                android:id="@+id/lay_choose_size"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/line1"
-                android:layout_marginTop="12dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="تومان"
-                    android:textColor="#000"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:id="@+id/txt_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="15000"
-                    android:textColor="#000"
-                    android:textSize="16sp"
-                    android:layout_marginLeft="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="مبلغ:"
-                    android:textColor="#000"
-                    android:textSize="16sp"
-                    android:layout_marginLeft="8dp"/>
-
-                <TextView
-                    android:id="@+id/choose_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="سایز کاغذ را انتخاب کنید"
-                    android:textColor="#000"
-                    android:textSize="17sp"
-                    android:layout_marginLeft="16dp"/>
-            </LinearLayout>
-            <android.support.v7.widget.CardView
-                android:id="@+id/lay_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/lay_choose_size"
-                android:layout_marginTop="8dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:cardCornerRadius="10dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_button_color_accent2">
-
-                    <TextView
-                        android:id="@+id/txt_size30"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="30 × 40"
-                        android:textColor="#000"
-                        android:textSize="24sp"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"/>
-
-                    <TextView
-                        android:id="@+id/txt_size35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="35 × 50"
-                        android:textColor="#000"
-                        android:textSize="24sp"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"/>
-
-                    <TextView
-                        android:id="@+id/txt_size50"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="50 × 70"
-                        android:textColor="#fff"
-                        android:textSize="24sp"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:background="@color/colorAccent"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-            <ImageView
-                android:id="@+id/line2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorAccent"
-                app:layout_constraintTop_toBottomOf="@+id/lay_size"
-                android:layout_marginTop="14dp"
-                android:layout_marginLeft="64dp"/>
-            <LinearLayout
-                android:id="@+id/lay_caption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/line2"
-                android:layout_marginTop="12dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:gravity="center"
                 android:orientation="vertical"
-                android:gravity="right">
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_work1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/lay_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/bg_card_new_drawing_order"
+                    android:elevation="8dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_work1">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="18dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:id="@+id/lay_choose_pic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/btn_choose_pic"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:background="@drawable/bg_button_color_accent2"
+                                android:paddingLeft="32dp"
+                                android:paddingRight="32dp"
+                                android:text="از گالری..."
+                                android:textColor="#000"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/choose_pic"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text="انتخاب عکس"
+                                android:textColor="#000"
+                                android:textSize="17sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/line1"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="12dp"
+                            android:background="@color/colorAccent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lay_choose_pic" />
+
+                        <LinearLayout
+                            android:id="@+id/lay_choose_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/line1">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="تومان"
+                                android:textColor="#000"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/txt_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="0"
+                                android:textColor="#000"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="مبلغ:"
+                                android:textColor="#000"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/choose_size"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:text="سایز کاغذ را انتخاب کنید"
+                                android:textColor="#000"
+                                android:textSize="17sp" />
+                        </LinearLayout>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/lay_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal"
+                            app:cardCornerRadius="10dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lay_choose_size">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_button_color_accent2">
+
+                                <TextView
+                                    android:id="@+id/txt_size30"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:paddingLeft="12dp"
+                                    android:paddingRight="12dp"
+                                    android:text="30 × 40"
+                                    android:textColor="#000"
+                                    android:textSize="20sp" />
+
+                                <ImageView
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/colorAccent" />
+
+                                <TextView
+                                    android:id="@+id/txt_size35"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:paddingLeft="12dp"
+                                    android:paddingRight="12dp"
+                                    android:text="35 × 50"
+                                    android:textColor="#000"
+                                    android:textSize="20sp" />
+
+                                <ImageView
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/colorAccent" />
+
+                                <TextView
+                                    android:id="@+id/txt_size50"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:paddingLeft="12dp"
+                                    android:paddingRight="12dp"
+                                    android:text="50 × 70"
+                                    android:textColor="#000"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <ImageView
+                            android:id="@+id/line2"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="64dp"
+                            android:layout_marginTop="14dp"
+                            android:background="@color/colorAccent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lay_size" />
+
+                        <LinearLayout
+                            android:id="@+id/lay_caption"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:gravity="right"
+                            android:orientation="vertical"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/line2">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="عکس و سایز دلخواهتون رو انتخاب کنید"
+                                android:textSize="8sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="حداکثر تا 6 روز کاری دیگه عکس میاد جلوی در خونتون"
+                                android:textSize="8sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="طراحی سیاه قلم نی نی گراف"
+                                android:textColor="#000"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+                    </android.support.constraint.ConstraintLayout>
+
+                    <ImageView
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:paddingLeft="-14dp"
+                        android:src="@drawable/logo2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
 
                 <TextView
+                    android:id="@+id/btn_ok"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="عکس و سایز دلخواهتون رو انتخاب کنید"
-                    android:textSize="12sp"/>
+                    android:layout_margin="10dp"
+                    android:background="@drawable/bg_btn_pay"
+                    android:paddingLeft="64dp"
+                    android:paddingRight="64dp"
+                    android:text="مرحله بعد"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:visibility="gone" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_work2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="حداکثر تا 6 روز کاری دیگه عکس میاد جلوی در خونتون"
-                    android:textSize="12sp"/>
+                    android:layout_weight="0.3"
+                    app:layout_constraintTop_toBottomOf="@+id/lay_order" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="طراحی سیاه قلم نی نی گراف"
-                    android:textColor="#000"
-                    android:textSize="24sp"/>
             </LinearLayout>
-        </android.support.constraint.ConstraintLayout>
 
-        <ImageView
-            android:layout_width="108dp"
-            android:layout_height="108dp"
+        </android.support.v4.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:paddingLeft="-18dp"
-            android:src="@drawable/logo2"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:src="@drawable/icon_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="طراحی سیاه قلم"
+                android:textColor="#fff"
+                android:textSize="24sp" />
+
+        </RelativeLayout>
 
     </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/lay_no_con"
+        layout="@layout/layout_no_connection"
+        android:visibility="gone" />
 
 </android.support.constraint.ConstraintLayout>

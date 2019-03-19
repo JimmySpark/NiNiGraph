@@ -18,13 +18,13 @@ import java.util.List;
 import ir.ninigraph.ninigraph.Model.Theme;
 import ir.ninigraph.ninigraph.Model.ThemeCategory;
 import ir.ninigraph.ninigraph.R;
-import ir.ninigraph.ninigraph.Server.ApiClient;
-import ir.ninigraph.ninigraph.Server.ApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecyclerThemeCategoryAdapter extends RecyclerView.Adapter<RecyclerThemeCategoryAdapter.RecyclerViewHolder>{
+import static ir.ninigraph.ninigraph.Activity.MainActivity.apiService;
+
+public class RecyclerThemeCategoryAdapter extends RecyclerView.Adapter<RecyclerThemeCategoryAdapter.RecyclerViewHolder> {
 
     Context context;
     List<ThemeCategory> themeCategoryList;
@@ -51,6 +51,7 @@ public class RecyclerThemeCategoryAdapter extends RecyclerView.Adapter<RecyclerT
         for (int i = 0; i < themeCategoryList.size(); i++)
             selected_lists.add(i, null);
 
+
         holder.txt_title.setText(category.getTitle());
         holder.txt_selected_count.setText("0");
 
@@ -58,7 +59,7 @@ public class RecyclerThemeCategoryAdapter extends RecyclerView.Adapter<RecyclerT
             @Override
             public void onClick(View v) {
 
-                if(holder.recycler_theme.getVisibility() == View.GONE){
+                if (holder.recycler_theme.getVisibility() == View.GONE) {
 
                     getTheme(
                             category.getId(),
@@ -68,8 +69,7 @@ public class RecyclerThemeCategoryAdapter extends RecyclerView.Adapter<RecyclerT
                             holder.progressBar,
                             position
                     );
-                }
-                else{
+                } else {
                     holder.img_icon.setImageResource(R.drawable.icon_closed_category);
                     holder.recycler_theme.setVisibility(View.GONE);
                 }
@@ -82,7 +82,7 @@ public class RecyclerThemeCategoryAdapter extends RecyclerView.Adapter<RecyclerT
         return themeCategoryList.size();
     }
 
-    public static class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         CardView card_category;
         TextView txt_title;
@@ -104,25 +104,17 @@ public class RecyclerThemeCategoryAdapter extends RecyclerView.Adapter<RecyclerT
     }
 
     //Classes
-    private void getTheme(
-            int id,
-            final ImageView img_icon,
-            final TextView txt_selected_count,
-            final RecyclerView recycler_theme,
-            final ProgressBar progressBar,
-            final int position
-    ){
+    private void getTheme(int id, final ImageView img_icon, final TextView txt_selected_count,
+                          final RecyclerView recycler_theme, final ProgressBar progressBar, final int position
+    ) {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<Theme>> call = apiService.getTheme(id);
-
-        call.enqueue(new Callback<List<Theme>>() {
+        apiService.getTheme(id).enqueue(new Callback<List<Theme>>() {
             @Override
             public void onResponse(Call<List<Theme>> call, Response<List<Theme>> response) {
-                if (response.isSuccessful()){
-                    if (response.body() != null){
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
 
                         img_icon.setImageResource(R.drawable.icon_oppened_category);
                         progressBar.setVisibility(View.GONE);

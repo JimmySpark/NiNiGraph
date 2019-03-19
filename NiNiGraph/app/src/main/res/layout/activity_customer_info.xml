@@ -5,24 +5,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.ninigraph.ninigraph.Activity.PersonalInfoActivity"
+    tools:context="ir.ninigraph.ninigraph.Activity.CustomerInfoActivity"
     android:background="@mipmap/bg_primary">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorAccent">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/icon_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="اطلاعات خریدار"
+            android:textSize="24sp"
+            android:textColor="#fff"/>
+
+    </RelativeLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/lay_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:padding="48dp">
 
         <TextView
             android:id="@+id/txt_enter_personal_info"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:text="@string/enter_personal_info"
             android:textSize="22sp"
-            android:textColor="#000"
-            android:textAlignment="center"
-            android:layout_marginTop="22dp"/>
+            android:textColor="#000"/>
 
         <LinearLayout
             android:id="@+id/lay_edt_texts"
@@ -30,9 +62,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/txt_enter_personal_info"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="38dp"
-            android:layout_marginLeft="38dp">
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="8dp">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/card_name"
@@ -167,52 +199,37 @@
             </android.support.v7.widget.CardView>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/caption1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/lay_edt_texts"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="48dp"
-            android:layout_marginLeft="48dp"
-            android:gravity="right">
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="8dp"
+            android:text="@string/personal_info_caption1"
+            android:textColor="#000"
+            android:textSize="8sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/personal_info_caption1"
-                android:textColor="#000"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/personal_info_caption2"
-                android:textColor="#000"
-                android:textSize="14sp"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_skip"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/caption2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="18dp"
-            android:layout_marginLeft="104dp"
-            android:layout_marginRight="104dp"
-            android:background="@drawable/bg_button_color_orange"
-            android:text="@string/skip"
-            android:textSize="20sp"
-            android:textColor="#fff"/>
+            app:layout_constraintTop_toBottomOf="@+id/caption1"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="8dp"
+            android:text="@string/personal_info_caption2"
+            android:textColor="#000"
+            android:textSize="8sp"/>
 
         <Button
             android:id="@+id/btn_save_info"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/btn_skip"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="88dp"
-            android:layout_marginRight="88dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:paddingRight="32dp"
+            android:paddingLeft="32dp"
             android:background="@drawable/bg_button_color_accent"
             android:text="@string/save_info"
             android:textSize="22sp"
@@ -220,7 +237,6 @@
     </android.support.constraint.ConstraintLayout>
 
     <include
-        android:id="@+id/lay_no_con"
         layout="@layout/layout_no_connection"
         android:visibility="gone"/>
 

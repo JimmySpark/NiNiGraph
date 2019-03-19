@@ -1,13 +1,11 @@
 package ir.ninigraph.ninigraph.Fragment;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +15,14 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import ir.ninigraph.ninigraph.Activity.FollowOrderActivity;
 import ir.ninigraph.ninigraph.Adapter.RecyclerOrderEditAdapter;
 import ir.ninigraph.ninigraph.Model.OrderEdit;
 import ir.ninigraph.ninigraph.R;
-import ir.ninigraph.ninigraph.Server.ApiClient;
-import ir.ninigraph.ninigraph.Server.ApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static ir.ninigraph.ninigraph.Activity.MainActivity.apiService;
 
 public class OrderEditFragment extends Fragment {
 
@@ -65,24 +62,19 @@ public class OrderEditFragment extends Fragment {
         return view;
     }
 
-    //Classes
-    private void getOrderEdit(){
+    private void getOrderEdit() {
 
-        ApiService apiService = ApiClient.getApi().create(ApiService.class);
-        Call<List<OrderEdit>> call = apiService.getOrderEdit(id);
-
-        call.enqueue(new Callback<List<OrderEdit>>() {
+        apiService.getOrderEdit(id).enqueue(new Callback<List<OrderEdit>>() {
             @Override
             public void onResponse(Call<List<OrderEdit>> call, Response<List<OrderEdit>> response) {
-                if (response.isSuccessful()){
-                    if (response.body() != null){
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
 
                         progress_bar.setVisibility(View.GONE);
                         recycler_order_edit.setVisibility(View.VISIBLE);
                         recycler_order_edit.setLayoutManager(new LinearLayoutManager(getActivity()));
                         recycler_order_edit.setAdapter(new RecyclerOrderEditAdapter(getActivity(), response.body()));
-                    }
-                    else {
+                    } else {
                         progress_bar.setVisibility(View.GONE);
                         txt_no_order.setVisibility(View.VISIBLE);
                     }

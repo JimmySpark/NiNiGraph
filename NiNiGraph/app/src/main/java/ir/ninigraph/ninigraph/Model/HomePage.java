@@ -6,8 +6,8 @@ public class HomePage {
 
     public List<SliderModel> slider;
     public List<AdsModel> ads;
-    public List<NewsModel> news;
-    public List<CccasionalModel> occasional;
+    public List<NewestModel> newest;
+    public List<OccasionalModel> occasional;
 
     public class SliderModel{
         public int id;
@@ -37,7 +37,7 @@ public class HomePage {
         }
     }
 
-    public class NewsModel{
+    public class NewestModel {
         public int id;
         public String url;
 
@@ -46,7 +46,7 @@ public class HomePage {
         }
     }
 
-    public class CccasionalModel{
+    public class OccasionalModel {
         public int id;
         public String title;
         public String url;

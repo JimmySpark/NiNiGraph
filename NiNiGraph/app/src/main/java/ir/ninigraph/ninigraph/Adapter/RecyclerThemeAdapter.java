@@ -20,11 +20,12 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.ninigraph.ninigraph.Activity.NewEditOrderActivity;
 import ir.ninigraph.ninigraph.Activity.PaymentEditActivity;
+import ir.ninigraph.ninigraph.Activity.UploadEditPicActivity;
 import ir.ninigraph.ninigraph.Model.Theme;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Util.GlideApp;
 
-public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdapter.RecyclerViewHolder>{
+public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdapter.RecyclerViewHolder> {
 
     //Values
     Context context;
@@ -36,7 +37,7 @@ public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdap
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
 
-    public RecyclerThemeAdapter(Context context, List<Theme> themeList, TextView txt_selected_count,List<ArrayList<Integer>> selected_lists, int position) {
+    public RecyclerThemeAdapter(Context context, List<Theme> themeList, TextView txt_selected_count, List<ArrayList<Integer>> selected_lists, int position) {
         this.context = context;
         this.themeList = themeList;
         this.selected_lists = selected_lists;
@@ -74,23 +75,21 @@ public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdap
             @Override
             public void onClick(View v) {
 
-                if (holder.circle_img_tick.getVisibility() == View.GONE){
+                if (holder.circle_img_tick.getVisibility() == View.GONE) {
 
                     //..Display
                     holder.circle_img_tick.setVisibility(View.VISIBLE);
-                    holder.circle_img_tick.setAnimation(AnimationUtils.loadAnimation(
-                            context,
-                            R.anim.show_circle_img_tick
-                    ));
+                    holder.circle_img_tick.setAnimation(AnimationUtils.loadAnimation(context, R.anim.show_circle_img_tick));
 
                     //..Get And Set Id
+                    editor.putInt("c", preferences.getInt("c", 0) + 1).apply();
                     selected_theme.add(theme.getId());
                     selected_lists.remove(pos);
                     selected_lists.add(pos, selected_theme);
                     NewEditOrderActivity.txt_choose.setVisibility(View.VISIBLE);
-
-                    //Toast.makeText(context, "theme: " + selected_theme, Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(context, "list: " + selected_lists, Toast.LENGTH_SHORT).show();
+                    if (preferences.getInt("c", 0) == 1)
+                        NewEditOrderActivity.txt_choose.setAnimation(AnimationUtils.loadAnimation(context, R.anim.show_circle_img_tick));
+                    NewEditOrderActivity.txt_choose.setText(preferences.getInt("c", 0) + " تا انتخاب کردم");
 
                     //..Show Selected Themes Count
                     txt_selected_count.setText(selected_theme.size() + "");
@@ -101,7 +100,7 @@ public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdap
                         public void onClick(View v) {
 
                             Intent intent = new Intent(context, PaymentEditActivity.class);
-                            for (int i = 0; i < selected_lists.size(); i++){
+                            for (int i = 0; i < selected_lists.size(); i++) {
 
                                 intent.putExtra("count", selected_lists.size());
                                 intent.putIntegerArrayListExtra("selected_themes" + i, selected_lists.get(i));
@@ -109,21 +108,23 @@ public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdap
                             context.startActivity(intent);
                         }
                     });
-                }
-                else{
+                } else {
                     holder.circle_img_tick.setVisibility(View.GONE);
-                    holder.circle_img_tick.setAnimation(AnimationUtils.loadAnimation(
-                            context,
-                            R.anim.hide_circle_img_tick
-                    ));
+                    holder.circle_img_tick.setAnimation(AnimationUtils.loadAnimation(context, R.anim.hide_circle_img_tick));
 
-                    for (int i = 0; i < selected_theme.size(); i++){
+                    for (int i = 0; i < selected_theme.size(); i++) {
 
                         if (selected_theme.get(i) == theme.getId())
                             selected_theme.remove(i);
                     }
 
-                    txt_selected_count.setText(selected_theme.size() + "");
+                    editor.putInt("c", preferences.getInt("c", 0) - 1).apply();
+                    txt_selected_count.setText(String.valueOf(selected_theme.size()));
+                    if (preferences.getInt("c", 0) == 0) {
+                        NewEditOrderActivity.txt_choose.setAnimation(AnimationUtils.loadAnimation(context, R.anim.hide_circle_img_tick));
+                        NewEditOrderActivity.txt_choose.setVisibility(View.GONE);
+                    }
+                    NewEditOrderActivity.txt_choose.setText(preferences.getInt("c", 0) + " تا انتخاب کردم");
                 }
             }
         });
@@ -134,7 +135,7 @@ public class RecyclerThemeAdapter extends RecyclerView.Adapter<RecyclerThemeAdap
         return themeList.size();
     }
 
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder{
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
         CardView card_theme;
         ImageView image;

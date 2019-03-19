@@ -13,7 +13,6 @@ import android.widget.ImageView;
 
 import java.util.List;
 
-import ir.ninigraph.ninigraph.Model.Ads;
 import ir.ninigraph.ninigraph.Model.HomePage;
 import ir.ninigraph.ninigraph.R;
 import ir.ninigraph.ninigraph.Util.GlideApp;

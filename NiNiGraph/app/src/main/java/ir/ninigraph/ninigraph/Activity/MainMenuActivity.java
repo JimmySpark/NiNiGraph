@@ -1,13 +1,12 @@
 package ir.ninigraph.ninigraph.Activity;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -15,7 +14,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,46 +31,49 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import java.util.List;
-
 import ir.ninigraph.ninigraph.Adapter.RecyclerAdsAdapter;
 import ir.ninigraph.ninigraph.Adapter.RecyclerNewestAdapter;
 import ir.ninigraph.ninigraph.Adapter.RecyclerOccasionalCategoryAdapter;
 import ir.ninigraph.ninigraph.Adapter.SliderAdapter;
-import ir.ninigraph.ninigraph.Model.Ads;
 import ir.ninigraph.ninigraph.Model.HomePage;
-import ir.ninigraph.ninigraph.Model.OccasionalCategory;
-import ir.ninigraph.ninigraph.Model.Picture;
 import ir.ninigraph.ninigraph.R;
-import ir.ninigraph.ninigraph.Server.ApiClient;
-import ir.ninigraph.ninigraph.Server.ApiService;
 import ir.ninigraph.ninigraph.Util.NetworkUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ss.com.bannerslider.Slider;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static ir.ninigraph.ninigraph.Activity.MainActivity.retroInterface;
+import static ir.ninigraph.ninigraph.Activity.MainActivity.apiService;
 
 public class MainMenuActivity extends AppCompatActivity {
 
     //Values
     Context context = this;
-    TextView txt_logo_title;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
-    public static TextView txt_occasional_title;
-    public static ImageView img_back_category;
-    public static RecyclerView recycler_occasional, recycler_occasional_category;
-    LinearLayout lay_menu, lay_newest, lay_occasional;
-    RelativeLayout item_new_order, item_follow_order, item_edit_info, item_support, item_logout, lay_dark_bg;
+    public static TextView txtOccasionalTitle;
+    public static ImageView imgBackCategory;
+    public static RecyclerView recyclerOccasional;
+    public static RecyclerView recyclerOccasionalCategory;
+    private TextView txtLogoTitle;
+    private ConstraintLayout layParent;
+    private SwipeRefreshLayout refreshLayout;
+    private Slider slider;
+    private RecyclerView recyclerAds;
+    private LinearLayout layNewest;
+    private RecyclerView recyclerNewest;
+    private LinearLayout layOccasional;
+    private ProgressBar progressBar;
+    private RelativeLayout layDarkBg;
+    private RelativeLayout itemNewOrder;
+    private RelativeLayout itemFollowOrder;
+    private RelativeLayout itemSupport;
+    private RelativeLayout itemLogout;
+    private LinearLayout layMenu;
+    private ConstraintLayout layNoCon;
+    private Button btnTryAgain;
     boolean isMenuVisible = false;
-    RecyclerView recycler_ads, recycler_newest;
-    ss.com.bannerslider.Slider slider;
-    SwipeRefreshLayout refreshLayout;
-    ConstraintLayout lay_parent, lay_no_con;
-    Button btn_try_again;
-    ProgressBar progress_bar;
     boolean isConnected, doubleBackToExitPressedOnce;
 
     HomePage homePageModel;
@@ -81,49 +82,26 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        initView();
 
         //Values
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         editor = preferences.edit();
 
-        //Views
-        txt_logo_title = findViewById(R.id.txt_logo_title);
-        lay_menu = findViewById(R.id.lay_menu);
-        lay_dark_bg = findViewById(R.id.lay_dark_bg);
-        item_new_order = findViewById(R.id.item_new_order);
-        item_follow_order = findViewById(R.id.item_follow_order);
-        item_edit_info = findViewById(R.id.item_edit_info);
-        item_support = findViewById(R.id.item_support);
-        item_logout = findViewById(R.id.item_logout);
-        slider = findViewById(R.id.slider);
-        recycler_ads = findViewById(R.id.recycler_ads);
-        recycler_newest = findViewById(R.id.recycler_newest);
-        txt_occasional_title = findViewById(R.id.txt_occasional_title);
-        recycler_occasional = findViewById(R.id.recycler_occasional);
-        recycler_occasional_category = findViewById(R.id.recycler_occasional_category);
-        refreshLayout = findViewById(R.id.refresh_layout);
-        lay_parent = findViewById(R.id.lay_parent);
-        lay_no_con = findViewById(R.id.lay_no_con);
-        btn_try_again = findViewById(R.id.btn_try_again);
-        img_back_category = findViewById(R.id.img_back_category);
-        progress_bar = findViewById(R.id.progress_bar);
-        lay_newest = findViewById(R.id.lay_newest);
-        lay_occasional = findViewById(R.id.lay_occasional);
-
 
         //Change Font
         Typeface font = Typeface.createFromAsset(getAssets(), "font/Lalezar-Regular.ttf");
-        txt_logo_title.setTypeface(font);
+        txtLogoTitle.setTypeface(font);
 
         //Show Menu Items
-        lay_menu.setOnClickListener(new View.OnClickListener() {
+        layMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (!isMenuVisible) {
 
                     showMenuItems();
-                    item_new_order.setOnClickListener(new View.OnClickListener() {
+                    itemNewOrder.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
@@ -132,7 +110,7 @@ public class MainMenuActivity extends AppCompatActivity {
                         }
                     });
 
-                    item_follow_order.setOnClickListener(new View.OnClickListener() {
+                    itemFollowOrder.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
@@ -141,18 +119,7 @@ public class MainMenuActivity extends AppCompatActivity {
                         }
                     });
 
-                    item_edit_info.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            hideMenuItems();
-                            Intent intent = new Intent(context, PersonalInfoActivity.class);
-                            intent.putExtra("edit_mode", true);
-                            startActivity(intent);
-                        }
-                    });
-
-                    item_support.setOnClickListener(new View.OnClickListener() {
+                    itemSupport.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
@@ -161,7 +128,7 @@ public class MainMenuActivity extends AppCompatActivity {
                         }
                     });
 
-                    item_logout.setOnClickListener(new View.OnClickListener() {
+                    itemLogout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
@@ -172,7 +139,7 @@ public class MainMenuActivity extends AppCompatActivity {
                         }
                     });
 
-                    lay_dark_bg.setOnClickListener(new View.OnClickListener() {
+                    layDarkBg.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
@@ -194,7 +161,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 refreshLayout.setRefreshing(false);
                 checkConnection();
 
-                btn_try_again.setOnClickListener(new View.OnClickListener() {
+                btnTryAgain.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -205,10 +172,10 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
 
-        //On Create
+        //Check Connection
         checkConnection();
 
-        btn_try_again.setOnClickListener(new View.OnClickListener() {
+        btnTryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -217,41 +184,89 @@ public class MainMenuActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (isMenuVisible)
+            hideMenuItems();
+        else if (doubleBackToExitPressedOnce) {
+
+            //Exit App
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+        } else {
+            doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "برای خروج دوباره لمس کنید.", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
+    }
+
     //Classes
+    private void initView() {
+        layParent = findViewById(R.id.lay_parent);
+        recyclerAds = findViewById(R.id.recycler_ads);
+        layNewest = findViewById(R.id.lay_newest);
+        recyclerNewest = findViewById(R.id.recycler_newest);
+        layOccasional = findViewById(R.id.lay_occasional);
+        imgBackCategory = findViewById(R.id.img_back_category);
+        txtOccasionalTitle = findViewById(R.id.txt_occasional_title);
+        recyclerOccasionalCategory = findViewById(R.id.recycler_occasional_category);
+        recyclerOccasional = findViewById(R.id.recycler_occasional);
+        progressBar = findViewById(R.id.progress_bar);
+        layDarkBg = findViewById(R.id.lay_dark_bg);
+        itemNewOrder = findViewById(R.id.item_new_order);
+        itemFollowOrder = findViewById(R.id.item_follow_order);
+        itemSupport = findViewById(R.id.item_support);
+        itemLogout = findViewById(R.id.item_logout);
+        layMenu = findViewById(R.id.lay_menu);
+        layNoCon = findViewById(R.id.lay_no_con);
+        btnTryAgain = findViewById(R.id.btn_try_again);
+        txtLogoTitle = findViewById(R.id.txt_logo_title);
+        refreshLayout = findViewById(R.id.refresh_layout);
+        slider = findViewById(R.id.slider);
+    }
+
     private void showMenuItems() {
 
         isMenuVisible = true;
-        item_new_order.setVisibility(View.VISIBLE);
-        item_follow_order.setVisibility(View.VISIBLE);
-        item_edit_info.setVisibility(View.VISIBLE);
-        item_support.setVisibility(View.VISIBLE);
-        item_logout.setVisibility(View.VISIBLE);
-        lay_dark_bg.setVisibility(View.VISIBLE);
+        itemNewOrder.setVisibility(View.VISIBLE);
+        itemFollowOrder.setVisibility(View.VISIBLE);
+        itemSupport.setVisibility(View.VISIBLE);
+        itemLogout.setVisibility(View.VISIBLE);
+        layDarkBg.setVisibility(View.VISIBLE);
 
         //..Start Animations
-        item_new_order.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_new_order));
-        item_follow_order.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_follow_order));
-        item_edit_info.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_edit_info));
-        item_support.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_support));
-        item_logout.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_logout));
+        itemNewOrder.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_new_order));
+        itemFollowOrder.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_follow_order));
+        itemSupport.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_support));
+        itemLogout.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_item_logout));
     }
 
     private void hideMenuItems() {
 
         isMenuVisible = false;
-        item_new_order.setVisibility(View.GONE);
-        item_follow_order.setVisibility(View.GONE);
-        item_edit_info.setVisibility(View.GONE);
-        item_support.setVisibility(View.GONE);
-        item_logout.setVisibility(View.GONE);
-        lay_dark_bg.setVisibility(View.GONE);
+        itemNewOrder.setVisibility(View.GONE);
+        itemFollowOrder.setVisibility(View.GONE);
+        itemSupport.setVisibility(View.GONE);
+        itemLogout.setVisibility(View.GONE);
+        layDarkBg.setVisibility(View.GONE);
 
         //..Start Animations
-        item_new_order.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
-        item_follow_order.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
-        item_edit_info.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
-        item_support.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
-        item_logout.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
+        itemNewOrder.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
+        itemFollowOrder.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
+        itemSupport.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
+        itemLogout.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_items));
     }
 
     private void showNewOrderDialog() {
@@ -275,12 +290,7 @@ public class MainMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-
-                if (preferences.getBoolean("isInfoEntered", false))
-
-                    startActivity(new Intent(context, NewEditOrderActivity.class));
-                else
-                    remindEnterInfo();
+                startActivity(new Intent(context, NewEditOrderActivity.class));
             }
         });
         //Drawing
@@ -288,13 +298,9 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                dialog.dismiss();
-
-                if (preferences.getBoolean("isInfoEntered", false))
-
-                    startActivity(new Intent(context, NewDrawingOrderActivity.class));
-                else
-                    remindEnterInfo();
+                /*dialog.dismiss();
+                startActivity(new Intent(context, NewDrawingOrderActivity.class));*/
+                Toast.makeText(context, "به زودی", Toast.LENGTH_SHORT).show();
             }
         });
         //Print
@@ -302,13 +308,9 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                dialog.dismiss();
-
-                if (preferences.getBoolean("isInfoEntered", false))
-
-                    Toast.makeText(context, "چاپ", Toast.LENGTH_SHORT).show();
-                else
-                    remindEnterInfo();
+                /*dialog.dismiss();
+                startActivity(new Intent(context, NewPrintOrderActivity.class));*/
+                Toast.makeText(context, "به زودی", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -327,21 +329,21 @@ public class MainMenuActivity extends AppCompatActivity {
 
         if (!isConnected) {
 
-            lay_parent.setVisibility(View.GONE);
-            lay_no_con.setVisibility(View.VISIBLE);
+            layParent.setVisibility(View.GONE);
+            layNoCon.setVisibility(View.VISIBLE);
         } else {
 
-            lay_parent.setVisibility(View.VISIBLE);
-            lay_no_con.setVisibility(View.GONE);
-            img_back_category.setVisibility(View.GONE);
-            txt_occasional_title.setText("مناسبتی ها");
-            recycler_occasional.setVisibility(View.GONE);
-            recycler_occasional_category.setVisibility(View.VISIBLE);
-            progress_bar.setVisibility(View.VISIBLE);
+            layParent.setVisibility(View.VISIBLE);
+            layNoCon.setVisibility(View.GONE);
+            imgBackCategory.setVisibility(View.GONE);
+            txtOccasionalTitle.setText("مناسبتی ها");
+            recyclerOccasional.setVisibility(View.GONE);
+            recyclerOccasionalCategory.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
             slider.setVisibility(View.GONE);
-            recycler_ads.setVisibility(View.GONE);
-            lay_newest.setVisibility(View.GONE);
-            lay_occasional.setVisibility(View.GONE);
+            recyclerAds.setVisibility(View.GONE);
+            layNewest.setVisibility(View.GONE);
+            layOccasional.setVisibility(View.GONE);
 
             getHomePage(new Runnable() {
                 @Override
@@ -349,52 +351,25 @@ public class MainMenuActivity extends AppCompatActivity {
                     slider.setAdapter(new SliderAdapter(context, homePageModel.slider));
                     slider.setInterval(5000);
 
-                    recycler_newest.setLayoutManager(new LinearLayoutManager(
+                    recyclerNewest.setLayoutManager(new LinearLayoutManager(
                             context, LinearLayoutManager.HORIZONTAL, false));
-                    recycler_occasional_category.setLayoutManager(new GridLayoutManager(context, 2));
+                    recyclerOccasionalCategory.setLayoutManager(new GridLayoutManager(context, 2));
 
-                    recycler_ads.setLayoutManager(new LinearLayoutManager(
+                    recyclerAds.setLayoutManager(new LinearLayoutManager(
                             getApplicationContext(),
                             LinearLayoutManager.HORIZONTAL,
                             false
                     ));
 
-                    recycler_ads.setAdapter(new RecyclerAdsAdapter(context, homePageModel.ads));
+                    recyclerAds.setAdapter(new RecyclerAdsAdapter(context, homePageModel.ads));
 
-                    recycler_newest.setAdapter(new RecyclerNewestAdapter(context, homePageModel.news));
+                    recyclerNewest.setAdapter(new RecyclerNewestAdapter(context, homePageModel.newest));
 
-                    recycler_occasional_category.setAdapter(new RecyclerOccasionalCategoryAdapter(
+                    recyclerOccasionalCategory.setAdapter(new RecyclerOccasionalCategoryAdapter(
                             context, homePageModel.occasional));
                 }
             });
         }
-    }
-
-    private void remindEnterInfo() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setCancelable(false);
-        builder.setMessage("اطلاعات کاربری شما کامل نیست، برای ثبت سفارش نیاز به تکمیل آن دارید");
-        builder.setPositiveButton("باشه، کامل میکنم", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                startActivity(new Intent(context, PersonalInfoActivity.class));
-            }
-        });
-        builder.setNegativeButton("بعدا کامل میکنم", null);
-
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_dialog));
-        dialog.show();
-
-        //Change Layout
-        Display display = (getWindowManager().getDefaultDisplay());
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        width = (int) ((width) * (((double) 4 / 5)));
-        dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
     public void getHomePage(final Runnable runnable) {
@@ -404,17 +379,17 @@ public class MainMenuActivity extends AppCompatActivity {
         } catch (Exception ignored) {
         }
 
-        retroInterface.getHomePage(input.toString()).enqueue(new Callback<HomePage>() {
+        apiService.getHomePage(input.toString()).enqueue(new Callback<HomePage>() {
             @Override
             public void onResponse(@NonNull Call<HomePage> call, @NonNull Response<HomePage> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
 
-                        progress_bar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                         slider.setVisibility(View.VISIBLE);
-                        recycler_ads.setVisibility(View.VISIBLE);
-                        lay_newest.setVisibility(View.VISIBLE);
-                        lay_occasional.setVisibility(View.VISIBLE);
+                        recyclerAds.setVisibility(View.VISIBLE);
+                        layNewest.setVisibility(View.VISIBLE);
+                        layOccasional.setVisibility(View.VISIBLE);
 
                         homePageModel = response.body();
                         runnable.run();
@@ -465,34 +440,5 @@ public class MainMenuActivity extends AppCompatActivity {
         int width = size.x;
         width = (int) ((width) * (((double) 4 / 5)));
         dialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
-    }
-
-    //Override Methods
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        if (isMenuVisible)
-            hideMenuItems();
-        else if (doubleBackToExitPressedOnce) {
-
-            //Exit App
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            startActivity(intent);
-        } else {
-            doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "برای خروج دوباره لمس کنید.", Toast.LENGTH_SHORT).show();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
-        }
     }
 }
