@@ -72,7 +72,6 @@ public class RecyclerOrderEditThemeAdapter extends RecyclerView.Adapter<Recycler
                 skipMemoryCache(true).
                 into(holder.img_theme);
 
-        Toast.makeText(context, "image_status: "+theme.image_status, Toast.LENGTH_SHORT).show();
         switch (th.image_status) {
 
             case 0:
@@ -81,9 +80,7 @@ public class RecyclerOrderEditThemeAdapter extends RecyclerView.Adapter<Recycler
                     @Override
                     public void onClick(View v) {
 
-                        Toast.makeText(context, "position: "+position, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(context, "id: "+th.getId(), Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(context, "برای ارسال عکس، لمس طولانی کنید", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "برای ارسال عکس، لمس طولانی کنید", Toast.LENGTH_LONG).show();
                     }
                 });
                 holder.card_theme.setOnLongClickListener(new View.OnLongClickListener() {
@@ -199,7 +196,6 @@ public class RecyclerOrderEditThemeAdapter extends RecyclerView.Adapter<Recycler
                 if (cursor.moveToFirst()) {
                     int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
 
-                    //Toast.makeText(context, String .valueOf(status), Toast.LENGTH_SHORT).show();
                     switch (status) {
 
                         case 1:

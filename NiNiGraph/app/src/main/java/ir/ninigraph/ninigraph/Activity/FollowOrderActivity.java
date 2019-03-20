@@ -101,12 +101,17 @@ public class FollowOrderActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == WRITE_PERMISSION_REQUEST){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                editor.putBoolean("write_permission", true).apply();
-            else
-                editor.remove("write_permission").apply();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (requestCode == WRITE_PERMISSION_REQUEST){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    editor.putBoolean("write_permission", true).apply();
+                else
+                    editor.remove("write_permission").apply();
+            }
         }
+        else
+            editor.putBoolean("write_permission", true).apply();
     }
 
     //Classes

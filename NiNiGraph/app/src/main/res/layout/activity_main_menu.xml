@@ -83,6 +83,7 @@
                         android:orientation="vertical"
                         android:background="#fff"
                         android:visibility="gone"
+                        android:gravity="center"
                         app:layout_constraintTop_toBottomOf="@+id/lay_newest">
 
                         <LinearLayout
@@ -112,7 +113,8 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/recycler_occasional_category"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"/>
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/recycler_occasional"
